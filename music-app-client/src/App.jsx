@@ -2,7 +2,7 @@ import { useState } from 'react'
 import './App.css'
 import {Routes, Route} from 'react-router'
 
-import Homepage from './components/Homepage/homepage.jsx'
+import Homepage from './components/views/Homepage/homepage.jsx'
 import Navbar from './components/Navbar/navbar.jsx'
 
 function App() {
