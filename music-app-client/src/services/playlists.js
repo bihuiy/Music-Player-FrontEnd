@@ -7,6 +7,10 @@ export const playlistIndex = () => {
     return axios.get(BASE_URL)
 }
 
+export const getPlaylist = (id) =>{
+    return axios.get(BASE_URL + `/${id}`)
+}
+
 export const createPlaylist =  (formData) => {
     return axios.post(
         BASE_URL,

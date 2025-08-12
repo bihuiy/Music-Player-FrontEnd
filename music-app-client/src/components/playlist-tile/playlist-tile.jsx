@@ -1,15 +1,17 @@
 import './playlist-tile.css'
+import { Link } from 'react-router'
 
 export default function PlaylistTile({playlist}) {
     return(
-        <div className='playlistCard'>
-            <div className='coverArt'>
-
+        <Link to={`/playlists/${playlist._id}`}>
+            <div className='playlistCard'>
+                <div className='coverArt'></div>
+                <div className='playlistInfo'>
+                    <p>{playlist.title}</p>
+                    <p>{playlist.owner?.username || "Unknown"}</p>
+                </div>
             </div>
-            <div className='playlistInfo'>
-                <p>{playlist.title}</p>
-                <p>{playlist.owner?.username || "Unknown"}</p>
-            </div>
-        </div>
+        </Link>
+        
     )
 }
