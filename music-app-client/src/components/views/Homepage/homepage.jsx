@@ -6,7 +6,7 @@ export default function Homepage() {
   // * State
   const [topPlaylists, setTopPlaylists] = useState([]);
   const [topSongs, setTopSongs] = useState([]);
-  //const [errors, setErrors] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const getHomepageData = async () => {
@@ -16,11 +16,13 @@ export default function Homepage() {
         setTopSongs(data.topSongs);
       } catch (error) {
         console.log(error);
-        //setErrors(error);
+        setError(error);
       }
     };
     getHomepageData();
   }, []);
+
+  if (error) return <ErrorPage error={error} />;
 
   return (
     <>
