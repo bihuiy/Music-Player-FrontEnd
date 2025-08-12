@@ -5,7 +5,7 @@
     align-items: center;
 }
 
-div.playlistContainer{
+div.playlistTile{
     background-color: #323232;
     display: flex;
     flex-direction: column;
@@ -17,6 +17,6 @@ div.playlistContainer{
     border-radius: 12px;
 }
 
-div.playlistContainer:hover{
+div.playlistTile:hover{
     background-color: #474747;
 }

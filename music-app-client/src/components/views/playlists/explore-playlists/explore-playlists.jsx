@@ -35,7 +35,7 @@ const ExplorePlaylists = () =>{
                 {playlists.length > 0
                 ? playlists.map(playlist =>{
                     return(
-                        <div key={playlist._id} className="playlistContainer">
+                        <div key={playlist._id} className="playlistTile">
                             <PlaylistTile playlist={playlist} />
                         </div>
                         
