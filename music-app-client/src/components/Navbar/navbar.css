@@ -14,6 +14,8 @@
 .navbar a{
     color: #129633;
     text-decoration: none;
+    padding-right: 15px;
+    padding-left: 15px;
 }
 .navbar a:hover{
     color: #2eda25;          
