@@ -4,3 +4,19 @@
     justify-content: center;
     align-items: center;
 }
+
+div.playlistContainer{
+    background-color: #323232;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: calc(25% - (45px / 4));
+    cursor: pointer;
+    box-sizing: border-box;
+    padding: 5px;
+    border-radius: 12px;
+}
+
+div.playlistContainer:hover{
+    background-color: #474747;
+}
