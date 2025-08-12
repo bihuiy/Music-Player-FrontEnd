@@ -1,5 +1,5 @@
 import axios from 'axios'
-
+import { getToken } from '../utils/auth'
 
 const BASE_URL = import.meta.env.VITE_API_URL + '/playlists'
 
@@ -7,12 +7,10 @@ export const playlistIndex = () => {
     return axios.get(BASE_URL)
 }
 
-export const createPlaylist = async (payload) => {
-    const token = locanStorage.getItem('token')
-    const {data} = await axios.post(
+export const createPlaylist =  (formData) => {
+    return axios.post(
         BASE_URL,
-        payload,
-        { headers: token ? { Authorization: `Bearer ${token}` } : {} }
+        formData,
+        { headers: { Authorization: `Bearer ${getToken()}` } }
     )
-    return data
 }
