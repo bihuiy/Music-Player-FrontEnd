@@ -30,6 +30,19 @@ const ExplorePlaylists = () =>{
     return(
         <>
             <h1>ExplorePlaylists</h1>
+            {playlists.length > 0
+            ? playlists.map(playlist =>{
+                return(
+                    <div key={playlist._id} className="playlistCard">
+                        <p>{playlist.title}</p>
+                    </div>
+                    
+                )
+            })
+            :
+            <p>There are no Playlists</p>
+            }
+
         </>
     )
 }
