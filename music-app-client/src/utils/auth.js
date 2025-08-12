@@ -19,7 +19,7 @@ export const getUser = () => {
 
     const payloadString = token.split('.')[1]
 
-    const payload = JSON.parse(atob(payloadString))
+    const {user, exp} = JSON.parse(atob(payloadString))
 
     const today = Date.now()/1000
     if (today > exp){

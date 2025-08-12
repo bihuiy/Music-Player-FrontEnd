@@ -4,7 +4,12 @@ import {useContext} from 'react'
 import {UserContext} from '../../contexts/userContext'
 
 const Navbar = () => {
-    const user = useContext (UserContext)
+    const {user, setUser} = useContext (UserContext)
+
+    const handleSignOut = () => {
+        localStorage.removeItem('token')
+        setUser(null)
+    }
 
     return(
         <nav className='navbar'>
@@ -13,8 +18,16 @@ const Navbar = () => {
         </div>
         <div className="links">
             <Link to="/playlists">Explore Playlists</Link>
-            <Link to="/user/sign-up">sign-up</Link>
-            <Link to="/user/sign-in">sign-in</Link>
+            {user?
+                <button type='button' className='signout-btn' onClick={handleSignOut}>Sign Out</button>
+                :(
+                    <>
+                    <Link to="/user/sign-up">sign-up</Link>
+                    <Link to="/user/sign-in">sign-in</Link>
+                    </>
+                )
+            }
+            
         </div>
         </nav>
     )

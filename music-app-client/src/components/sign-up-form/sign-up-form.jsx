@@ -1,10 +1,15 @@
 import './sign-up-form.css'
 import '../../styles/forms.css'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { signUp } from '../../services/users'
 import { useNavigate } from 'react-router'
+import { UserContext } from '../../contexts/userContext'
+import { setToken, getUser } from '../../utils/auth'
 
 export default function SignUpForm(){
+    const {setUser} = useContext(UserContext)
+
+
     const [formData, setformData] = useState({
         email: '',
         username: '',
@@ -20,6 +25,7 @@ export default function SignUpForm(){
         try {
             const {data} = await signUp(formData)
             setToken(data.token)
+            setUser(getUser())
             navigate("/")
         } catch (error) {
             console.log(error)
