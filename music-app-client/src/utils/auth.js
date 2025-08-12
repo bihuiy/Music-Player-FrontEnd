@@ -11,3 +11,21 @@ export const getToken = () => {
 export const removeToken = () => {
     localStorage.removeItem(tokenName)
 }
+
+export const getUser = () => {
+    const token = getToken()
+    
+    if (!token) return null
+
+    const payloadString = token.split('.')[1]
+
+    const payload = JSON.parse(atob(payloadString))
+
+    const today = Date.now()/1000
+    if (today > exp){
+        removeToken()
+        return null
+    }
+
+    return user
+}

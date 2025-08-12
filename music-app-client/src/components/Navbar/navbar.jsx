@@ -1,9 +1,10 @@
 import {Link} from 'react-router'
 import '../Navbar/navbar.css'
+import {useContext} from 'react'
 import {UserContext} from '../../contexts/userContext'
 
 const Navbar = () => {
-    const user = useContext (userContext)
+    const user = useContext (UserContext)
 
     return(
         <nav className='navbar'>
