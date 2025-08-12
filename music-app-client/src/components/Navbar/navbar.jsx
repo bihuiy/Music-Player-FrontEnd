@@ -19,7 +19,12 @@ const Navbar = () => {
         <div className="links">
             <Link to="/playlists">Explore Playlists</Link>
             {user?
+                <>
+                
+                <Link to="/playlists/create-playlist">Create a Playlist</Link>
                 <button type='button' className='signout-btn' onClick={handleSignOut}>Sign Out</button>
+                </>
+                
                 :(
                     <>
                     <Link to="/user/sign-up">sign-up</Link>
