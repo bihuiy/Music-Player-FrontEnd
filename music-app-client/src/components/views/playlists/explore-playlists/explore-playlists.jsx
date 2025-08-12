@@ -30,19 +30,22 @@ const ExplorePlaylists = () =>{
     if (error) return <ErrorPage error={error}/>
     return(
         <>
-            <h1>ExplorePlaylists</h1>
-            {playlists.length > 0
-            ? playlists.map(playlist =>{
-                return(
-                    <div key={playlist._id} className="playlistCard">
-                        <PlaylistTile playlist={playlist} />
-                    </div>
-                    
-                )
-            })
-            :
-            <p>There are no Playlists</p>
-            }
+            <h1>Explore Playlists</h1>
+            <div className="playlists-grid">
+                {playlists.length > 0
+                ? playlists.map(playlist =>{
+                    return(
+                        <div key={playlist._id} className="playlistCard">
+                            <PlaylistTile playlist={playlist} />
+                        </div>
+                        
+                    )
+                })
+                :
+                <p>There are no Playlists</p>
+                }
+            </div>
+            
 
         </>
     )
