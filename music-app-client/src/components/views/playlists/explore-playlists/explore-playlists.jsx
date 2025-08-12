@@ -3,6 +3,7 @@ import './explore-playlists.css'
 import {useEffect, useState} from 'react'
 import ErrorPage from "../../error-page/error-page"
 import LoadingPage from "../../loading-page/loading-page"
+import PlaylistTile from "../../../playlist-tile/playlist-tile"
 
 const ExplorePlaylists = () =>{
     const [playlists, setPlaylists] = useState([])
@@ -34,7 +35,7 @@ const ExplorePlaylists = () =>{
             ? playlists.map(playlist =>{
                 return(
                     <div key={playlist._id} className="playlistCard">
-                        <p>{playlist.title}</p>
+                        <PlaylistTile playlist={playlist} />
                     </div>
                     
                 )
