@@ -36,7 +36,7 @@ const CreatePlaylist = () =>{
             <form className="form" onSubmit={handleSubmit}>
                 <h1>CreatePlaylist</h1>
                 <label htmlFor="title">Playlist Title</label>
-                <input type="text" name='title' placeholder='A Cool Playlist Title' value={formData.name} onChange={handleChange} />
+                <input type="text" name='title' placeholder='A Cool Playlist Title' value={formData.title} onChange={handleChange} />
                 {errors.title && <p className='error-message'>{errors.title}</p>}
                 <button className='createPlaylist'type="submit">Create</button>
             </form>

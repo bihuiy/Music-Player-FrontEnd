@@ -3,6 +3,7 @@ import './explore-playlists.css'
 import {useEffect, useState} from 'react'
 import ErrorPage from "../../error-page/error-page"
 import LoadingPage from "../../loading-page/loading-page"
+import PlaylistTile from "../../../playlist-tile/playlist-tile"
 
 const ExplorePlaylists = () =>{
     const [playlists, setPlaylists] = useState([])
@@ -29,19 +30,22 @@ const ExplorePlaylists = () =>{
     if (error) return <ErrorPage error={error}/>
     return(
         <>
-            <h1>ExplorePlaylists</h1>
-            {playlists.length > 0
-            ? playlists.map(playlist =>{
-                return(
-                    <div key={playlist._id} className="playlistCard">
-                        <p>{playlist.title}</p>
-                    </div>
-                    
-                )
-            })
-            :
-            <p>There are no Playlists</p>
-            }
+            <h1>Explore Playlists</h1>
+            <div className="playlists-grid">
+                {playlists.length > 0
+                ? playlists.map(playlist =>{
+                    return(
+                        <div key={playlist._id} className="playlistTile">
+                            <PlaylistTile playlist={playlist} />
+                        </div>
+                        
+                    )
+                })
+                :
+                <p>There are no Playlists</p>
+                }
+            </div>
+            
 
         </>
     )
