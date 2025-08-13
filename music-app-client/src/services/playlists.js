@@ -8,7 +8,10 @@ export const playlistIndex = () => {
 }
 
 export const getPlaylist = (id) =>{
-    return axios.get(BASE_URL + `/${id}`)
+    return axios.get(BASE_URL + `/${id}`, {
+    // cache-bust so server returns 200 with a body
+    params: { t: Date.now() },
+    headers: { 'Cache-Control': 'no-cache' },})
 }
 
 export const createPlaylist =  (formData) => {
