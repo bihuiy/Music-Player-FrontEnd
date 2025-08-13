@@ -1,6 +1,7 @@
-import { useState } from 'react'
-import './App.css'
-import {Routes, Route} from 'react-router'
+import { useState } from "react";
+import "./App.css";
+import { Routes, Route } from "react-router";
+
 
 import Homepage from './components/views/Homepage/homepage.jsx'
 import Navbar from './components/Navbar/navbar.jsx'
@@ -10,9 +11,11 @@ import CreatePlaylist from './components/views/playlists/create-playlist/create-
 import ExplorePlaylists from './components/views/playlists/explore-playlists/explore-playlists.jsx'
 import ShowPlaylist from './components/views/playlists/show-playlist/show-playlist.jsx'
 import EditPlaylist from './components/views/playlists/edit-playlist/edit-playlist.jsx'
+
 function App() {
-  return(
+  return (
     <>
+
   <Navbar />
   <Routes>
     <Route index element={<Homepage/>} />
@@ -25,6 +28,7 @@ function App() {
   </Routes>
   </>
   )
+
 }
 
-export default App
+export default App;
