@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import "./homepage.css";
+import '../playlists/explore-playlists/explore-playlists.css'
 import { homePage } from "../../../services/homepage";
+import PlaylistTile from "../../playlist-tile/playlist-tile";
 
 // Page components
 import ErrorPage from "../error-page/error-page";
@@ -31,17 +33,20 @@ export default function Homepage() {
     <>
       <h1>Music Player Homepage</h1>
       <h2>Check out our top playlists:</h2>
-      <ul>
-        {topPlaylists.map((playlist) => (
-          <li key={playlist._id}>
-            <img src={playlist.coverArt} alt={`${playlist.title} cover`} />
-            <p>
-              {playlist.title} created by:{" "}
-              {playlist.owner?.username || "Unknown"}
-            </p>
-          </li>
-        ))}
-      </ul>
+      <div className="playlists-grid">
+                {topPlaylists.length > 0
+                ? topPlaylists.map(playlist =>{
+                    return(
+                        <div key={playlist._id} className="playlistTile">
+                            <PlaylistTile playlist={playlist} />
+                        </div>
+                        
+                    )
+                })
+                :
+                <p>There are no Playlists</p>
+                }
+            </div>
       <h2>Check out our top songs:</h2>
       <ul>
         {topSongs.map((song) => (
