@@ -16,7 +16,7 @@ import BookmarkedPlaylists from "./components/views/profiles/bookmarked-playlist
 import Songs from "./components/views/songs/songs.jsx";
 import ShowPlaylist from './components/views/playlists/show-playlist/show-playlist.jsx'
 import EditPlaylist from './components/views/playlists/edit-playlist/edit-playlist.jsx'
-
+import Player from "./components/player/player.jsx";
 
 function App() {
   return (
@@ -43,6 +43,7 @@ function App() {
         <Route path="/user/:userId/liked-songs" element={<LikedSongs />} />
         <Route path="/songs" element={<Songs />} />
       </Routes>
+      <Player/>
     </>
   );
 
