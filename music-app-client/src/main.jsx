@@ -4,14 +4,16 @@ import './index.css'
 import App from './App.jsx'
 import {BrowserRouter} from 'react-router'
 import { UserProvider } from './contexts/userContext.jsx'
-
+import {AudioPlayerProvider} from 'react-use-audio-player'
 
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
       <UserProvider>
-        <App />
+        <AudioPlayerProvider>
+          <App />
+        </AudioPlayerProvider>
       </UserProvider>
     </BrowserRouter>
   </StrictMode>,
