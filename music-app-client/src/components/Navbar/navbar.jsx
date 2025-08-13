@@ -18,6 +18,7 @@ const Navbar = () => {
       </div>
       <div className="links">
         <Link to="/playlists">Explore Playlists</Link>
+        <Link to="/songs">Explore Songs</Link>
         {user ? (
           <>
             <Link to="/playlists/create-playlist">Create a Playlist</Link>
@@ -28,7 +29,7 @@ const Navbar = () => {
             >
               Sign Out
             </button>
-            <Link to={`/profile/${user._id}`}>{`${user.username}`}</Link>
+            <Link to={`/user/${user._id}/profile`}>{`${user.username}`}</Link>
           </>
         ) : (
           <>
