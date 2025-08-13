@@ -1,7 +1,7 @@
 import './show-playlist.css'
 import { useEffect, useState, useContext } from 'react'
 import { useParams, useNavigate } from 'react-router'
-import { getPlaylist } from '../../../../services/playlists'
+import { deletePlaylist, getPlaylist } from '../../../../services/playlists'
 import ErrorPage from "../../error-page/error-page"
 import LoadingPage from "../../loading-page/loading-page"
 import { UserContext } from '../../../../contexts/userContext'
@@ -30,6 +30,15 @@ const ShowPlaylist = () =>{
         getPlaylistData()
     }, [playlistId])
 
+    const handleDelete = async () => {
+        try {
+            await deletePlaylist(playlistId)
+            navigate('/playlists')
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     if (isLoading) return <LoadingPage />
     if (error) return <ErrorPage error={error} />
     if (!playlist) return <p>Playlist not found :(</p>
@@ -55,10 +64,16 @@ const ShowPlaylist = () =>{
                     <h1>{playlist.title}</h1>
                     <h2>Created by {playlist.owner.username}</h2>
                     {isOwner && (
+                        <>
                         <button 
-                            className='editButton'
-                            onClick={() => navigate(`/playlists/${playlist._id}/edit`)}
-                            >Edit Playlist</button>
+                        className='editButton'
+                        onClick={() => navigate(`/playlists/${playlist._id}/edit`)}
+                            >Edit Playlist
+                        </button>
+                        <button className='deleteButton'
+                        onClick={handleDelete}>Delete Playlist</button>
+                        </>
+                        
                     )}
                 </div>
             </div>
