@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import "./homepage.css";
 import { homePage } from "../../../services/homepage";
 
+// Page components
+import ErrorPage from "../error-page/error-page";
+
 export default function Homepage() {
   // * State
   const [topPlaylists, setTopPlaylists] = useState([]);
