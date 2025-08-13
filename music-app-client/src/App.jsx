@@ -8,7 +8,11 @@ import SignUpPage from "./components/views/user/sign-up/sign-up-page.jsx";
 import SignInPage from "./components/views/user/sign-in/sign-in.jsx";
 import CreatePlaylist from "./components/views/playlists/create-playlist/create-playlist.jsx";
 import ExplorePlaylists from "./components/views/playlists/explore-playlists/explore-playlists.jsx";
-import Profile from "./components/views/profile/profile.jsx";
+import Profile from "./components/views/profiles/profile.jsx";
+import LikedSongs from "./components/views/profiles/liked-songs.jsx";
+import CreatedPlaylists from "./components/views/profiles/created-playlists.jsx";
+import BookmarkedPlaylists from "./components/views/profiles/bookmarked-playlists.jsx";
+import Songs from "./components/views/songs/songs.jsx";
 
 function App() {
   return (
@@ -20,7 +24,17 @@ function App() {
         <Route path="/user/sign-in" element={<SignInPage />} />
         <Route path="/playlists/create-playlist" element={<CreatePlaylist />} />
         <Route path="/playlists" element={<ExplorePlaylists />} />
-        <Route path="/profile/:userId" element={<Profile />} />
+        <Route path="/user/:userId/profile" element={<Profile />} />
+        <Route
+          path="/user/:userId/created-playlists"
+          element={<CreatedPlaylists />}
+        />
+        <Route
+          path="/user/:userId/bookmarked-playlists"
+          element={<BookmarkedPlaylists />}
+        />
+        <Route path="/user/:userId/liked-songs" element={<LikedSongs />} />
+        <Route path="/songs" element={<Songs />} />
       </Routes>
     </>
   );

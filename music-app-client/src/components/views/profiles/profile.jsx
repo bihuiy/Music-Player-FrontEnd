@@ -1,14 +1,14 @@
-import { useContext, useEffect, useState } from "react";
-import profileShow from "../../../services/profile";
-import { UserContext } from "../../../contexts/userContext";
+import { useEffect, useState } from "react";
+import { profileShow } from "../../../services/profiles";
 import "./profile.css";
 
 // Page components
 import ErrorPage from "../error-page/error-page";
-import { Link } from "react-router";
+import { Link, useParams } from "react-router";
 import LoadingPage from "../loading-page/loading-page";
 
 export default function Profile() {
+  const { userId } = useParams();
   // * State
   const [profileUser, setProfileUser] = useState(null);
   const [createdPlaylists, setCreatedPlaylists] = useState([]);
@@ -17,13 +17,11 @@ export default function Profile() {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const { user: currentUser } = useContext(UserContext);
-
   useEffect(() => {
     const getProfileData = async () => {
       setIsLoading(true);
       try {
-        const { data } = await profileShow(currentUser._id);
+        const { data } = await profileShow(userId);
         setProfileUser(data.user);
         setCreatedPlaylists(data.createdPlaylists);
         setBookmarkedPlaylists(data.bookmarkedPlaylists);
@@ -35,7 +33,7 @@ export default function Profile() {
       }
     };
     getProfileData();
-  }, []);
+  }, [userId]);
 
   if (error) return <ErrorPage error={error} />;
   if (isLoading) return <LoadingPage />;
