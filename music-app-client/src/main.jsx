@@ -5,6 +5,7 @@ import App from './App.jsx'
 import {BrowserRouter} from 'react-router'
 import { UserProvider } from './contexts/userContext.jsx'
 import {AudioPlayerProvider} from 'react-use-audio-player'
+import { PlayerProvider } from './contexts/playerContext.jsx'
 
 
 createRoot(document.getElementById('root')).render(
@@ -12,7 +13,9 @@ createRoot(document.getElementById('root')).render(
     <BrowserRouter>
       <UserProvider>
         <AudioPlayerProvider>
-          <App />
+          <PlayerProvider>
+            <App />
+          </PlayerProvider>
         </AudioPlayerProvider>
       </UserProvider>
     </BrowserRouter>

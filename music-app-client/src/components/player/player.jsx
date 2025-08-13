@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 
 
 const Player = () => {
-const {togglePlayPause, isPlaying, src, load, seek, getPosition, setVolume, toggleMute, isMuted, duration} = useAudioPlayerContext()
+const {togglePlayPause, isPlaying, src, load, seek, getPosition, setVolume, toggleMute, isMuted, duration,} = useAudioPlayerContext()
     
     const[position, setPosition] = useState(0)
 
