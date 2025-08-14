@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { createdPlaylistsShow } from "../../../services/profiles";
-import "./profile.css";
+import "./Profile.css";
 
 // Page components
-import ErrorPage from "../error-page/error-page";
+import ErrorPage from "../ErrorPage/ErrorPage";
 import { useParams } from "react-router";
-import LoadingPage from "../loading-page/loading-page";
+import LoadingPage from "../LoadingPage/LoadingPage";
 
 export default function CreatedPlaylists() {
   const { userId } = useParams();

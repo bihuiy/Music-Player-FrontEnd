@@ -1,4 +1,4 @@
-import './error-page.css'
+import './ErrorPage.css'
 import { Link } from "react-router"
 
 export default function ErrorPage({error}) {

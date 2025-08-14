@@ -1,4 +1,4 @@
-import './player.css'
+import './Player.css'
 import { useAudioPlayerContext } from "react-use-audio-player";
 import { FaPlay, FaPause } from "react-icons/fa";
 

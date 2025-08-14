@@ -1,10 +1,10 @@
 import '../../styles/forms.css'
-import './sign-in-form.css'
+import './Sign-in-form.css'
 import { useState, useContext } from 'react'
 import {signIn } from '../../services/users'
 import { useNavigate } from 'react-router'
 import { setToken, getUser } from '../../utils/auth'
-import { UserContext } from '../../contexts/userContext'
+import { UserContext } from '../../contexts/UserContext'
 
 export default function SignUpForm(){
     const {setUser} = useContext(UserContext)

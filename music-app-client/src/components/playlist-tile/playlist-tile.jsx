@@ -1,4 +1,4 @@
-import './playlist-tile.css'
+import './Playlist-tile.css'
 import { Link } from 'react-router'
 
 export default function PlaylistTile({playlist}) {

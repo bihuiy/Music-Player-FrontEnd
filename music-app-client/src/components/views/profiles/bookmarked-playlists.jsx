@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
-import { bookmarkedPlaylistsShow } from "../../../services/profiles";
-import "./profile.css";
-
-// Page components
-import ErrorPage from "../error-page/error-page";
 import { useParams } from "react-router";
-import LoadingPage from "../loading-page/loading-page";
+import "./Profile.css";
+
+// * Services
+import { bookmarkedPlaylistsShow } from "../../../services/profiles";
+
+// * Page components
+import ErrorPage from "../ErrorPage/ErrorPage";
+import LoadingPage from "../LoadingPage/LoadingPage";
 
 export default function BookmarkedPlaylists() {
   const { userId } = useParams();
