@@ -1,9 +1,6 @@
 
-
-
-
-
 .coverArtWrapper{
+    position:relative;
     width: 100%;
     aspect-ratio: 1 / 1;
     overflow: hidden;
@@ -17,3 +14,27 @@
     object-fit: cover;
     display: block;
 }
+
+.bookmarkIcon {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 9;
+    width: 32px;
+    height: 32px;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    background: rgba(0, 0, 0, 0.608);
+    border: 0;
+    border-radius: 30%;
+    color: #fff;
+    font-size: 23px;
+    line-height: 1;
+}
+
+.bookmarkIcon:hover{
+    filter: brightness(75%);
+}
+
+.bookmarkIcon:focus { outline: none; box-shadow: none; }
