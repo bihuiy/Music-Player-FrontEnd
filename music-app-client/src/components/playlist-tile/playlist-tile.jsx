@@ -1,7 +1,7 @@
 import './Playlist-tile.css'
 import { Link } from 'react-router'
 import BookmarkButton from '../BookmarkButton/BookmarkButton'
-import { UserContext } from '../../contexts/UserContext'
+import { UserContext } from '../../contexts/userContext'
 import { useContext } from 'react'
 
 export default function PlaylistTile({playlist}) {

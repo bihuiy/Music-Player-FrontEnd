@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router";
-import { UserContext } from "../../../contexts/UserContext";
+import { UserContext } from "../../../contexts/userContext";
 import "./Homepage.css";
 import "../Playlists/Explore-playlists/Explore-playlists.css";
 import { homePage } from "../../../services/homepage";
@@ -9,7 +9,7 @@ import PlaylistTile from "../../Playlist-tile/Playlist-tile";
 // Page components
 import ErrorPage from "../ErrorPage/ErrorPage";
 import SongItem from "../Songs/SongItem";
-import AddToPlaylistModal from "../songs/AddToPlaylistModal";
+import AddToPlaylistModal from "../Songs/AddToPlaylistModal";
 import { addSongToPlaylist } from "../../../services/songs";
 import { createdPlaylistsShow } from "../../../services/profiles";
 
@@ -38,9 +38,15 @@ export default function Homepage() {
     getHomepageData();
   }, []);
 
+  
+
   // Fetch current login user's playlists
   useEffect(() => {
     const getCreatedPlaylistsData = async () => {
+      if (!user?._id) {
+        setPlaylists([])
+        return
+      }
       try {
         const { data } = await createdPlaylistsShow(user._id);
         setPlaylists(data.createdPlaylists);

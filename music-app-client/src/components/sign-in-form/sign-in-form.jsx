@@ -4,7 +4,7 @@ import { useState, useContext } from 'react'
 import {signIn } from '../../services/users'
 import { Link, useNavigate } from 'react-router'
 import { setToken, getUser } from '../../utils/auth'
-import { UserContext } from '../../contexts/UserContext'
+import { UserContext } from '../../contexts/userContext'
 
 export default function SignUpForm(){
     const {setUser} = useContext(UserContext)

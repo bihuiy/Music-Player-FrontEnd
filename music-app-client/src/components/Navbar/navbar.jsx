@@ -1,7 +1,7 @@
 import { Link } from "react-router";
 import "../Navbar/Navbar.css";
 import { useContext } from "react";
-import { UserContext } from "../../contexts/UserContext";
+import { UserContext } from "../../contexts/userContext";
 import axios from "axios";
 
 const Navbar = () => {

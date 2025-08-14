@@ -2,7 +2,7 @@ import "./Show-playlist.css";
 import { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router";
 import { deletePlaylist, getPlaylist } from "../../../../services/playlists";
-import { UserContext } from "../../../../contexts/UserContext";
+import { UserContext } from "../../../../contexts/userContext";
 
 // Page components
 import LoadingPage from "../../LoadingPage/LoadingPage";
