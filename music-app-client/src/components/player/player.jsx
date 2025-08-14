@@ -4,6 +4,7 @@ import { FaPlay, FaPause, } from "react-icons/fa";
 import { GoMute, GoUnmute } from 'react-icons/go'
 import { useEffect, useState } from 'react';
 import { usePlayer } from '../../contexts/playerContext';
+import { IoMdSkipBackward, IoMdSkipForward } from "react-icons/io";
 
 
 
@@ -12,6 +13,13 @@ const Player = () => {
     const {togglePlayPause, isPlaying, src, load, seek, getPosition, setVolume, volume, toggleMute, isMuted, duration,} = useAudioPlayerContext()
     
     const[position, setPosition] = useState(0)
+
+    const skipTrack = (n) => {
+        setCurrentIndex(i => {
+            const next = i + n
+            return next < (playlist?.length || 0) ? next: 0
+        })
+    }
 
     useEffect(() => {
 
@@ -23,12 +31,7 @@ const Player = () => {
         load(url, {
             autoplay: true,
             initialVolume: volume,
-            onend: () => {
-            setCurrentIndex(i => {
-                const next = i + 1
-                return next < (playlist?.length || 0) ? next : 0
-            })
-            },
+            onend: () => skipTrack(1),
         })
     }, [playlist, currentIndex, load, setCurrentIndex])
 
@@ -75,7 +78,9 @@ const handlePlayButtonClick = () =>{
             <div className="songInfo"></div>
             <div className="playerControls">
                 <div className="controlButtons">
+                    <button className="skipBack" onClick={() => skipTrack(-1)}><IoMdSkipBackward /></button>
                     <button className="togglePause" onClick={handlePlayButtonClick}>{isPlaying ? <FaPause /> : <FaPlay/>} </button>
+                    <button className="skipForwards" onClick={() => skipTrack(1)}><IoMdSkipForward /></button>
                 </div>
                     <input type="range" min={0} max={duration} step={0.01} value={position} onChange={handleSeek} className="progressBar"  />
             </div>
