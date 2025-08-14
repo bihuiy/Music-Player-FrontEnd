@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { profileShow } from "../../../services/profiles";
 import "./Profile.css";
+import { UserContext } from "../../../contexts/UserContext";
+import { useContext } from "react";
 
 // Page components
 import ErrorPage from "../ErrorPage/ErrorPage";
@@ -13,6 +15,7 @@ import { createdPlaylistsShow } from "../../../services/profiles";
 
 export default function Profile() {
   const { userId } = useParams();
+  const {user} = useContext(UserContext)
   // * State
   const [profileUser, setProfileUser] = useState(null);
   const [createdPlaylists, setCreatedPlaylists] = useState([]);
@@ -22,6 +25,7 @@ export default function Profile() {
   const [selectedSong, setSelectedSong] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  
 
   useEffect(() => {
     const getProfileData = async () => {
@@ -46,8 +50,9 @@ export default function Profile() {
     const getCreatedPlaylistsData = async () => {
       try {
         const { data } = await createdPlaylistsShow(user._id);
-        setPlaylists(data.createdPlaylists);
+        setCreatedPlaylists(data.createdPlaylists);
       } catch (error) {
+        console.log(error)
         setError(error);
       }
     };
@@ -107,12 +112,12 @@ export default function Profile() {
           to={`/user/${profileUser._id}/liked-songs`}
         >{`${profileUser.username}'s liked songs`}</Link>
         {likedSongs.length > 0 ? (
-          likedSongs.map((likedSong, index) => {
+          likedSongs.map((song, index) => {
             return (
               <SongItem
                 key={song._id}
                 song={song}
-                songs={likedSong}
+                songs={likedSongs}
                 index={index}
                 user={user}
                 handleOpenModal={handleOpenModal}
