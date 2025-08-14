@@ -3,23 +3,59 @@ import { useAudioPlayerContext } from "react-use-audio-player";
 import { FaPlay, FaPause, } from "react-icons/fa";
 import { GoMute, GoUnmute } from 'react-icons/go'
 import { useEffect, useState } from 'react';
+import { usePlayer } from '../../contexts/playerContext';
 
 
 
 const Player = () => {
-const {togglePlayPause, isPlaying, src, load, seek, getPosition, setVolume, toggleMute, isMuted, duration,} = useAudioPlayerContext()
+    const { playlist, setPlaylist, currentIndex, setCurrentIndex } = usePlayer()
+    const {togglePlayPause, isPlaying, src, load, seek, getPosition, setVolume, toggleMute, isMuted, duration,} = useAudioPlayerContext()
     
     const[position, setPosition] = useState(0)
+
+    useEffect(() => {
+
+        const track = Array.isArray(playlist) ? playlist[currentIndex] : null
+        const url = track?.audioUrl || track?.url
+
+        if (!url) return
+
+        load(url, {
+            autoplay: true,
+            onend: () => {
+            setCurrentIndex(i => {
+                const next = i + 1
+                return next < (playlist?.length || 0) ? next : 0
+            })
+            },
+        })
+    }, [playlist, currentIndex, load, setCurrentIndex])
 
     useEffect(() => {
         if(!src) {setPosition(0); return}
         const id = setInterval(() => {
             setPosition(getPosition())
         }, 250)
-    }, [src])
+    }, [src, isPlaying, getPosition])
 
 const handlePlayButtonClick = () =>{
-        if (src) return togglePlayPause()
+        if (!src) {
+            const track = Array.isArray(playlist) ? playlist[currentIndex] : null
+            const url = track?.audioUrl || track?.url
+            if (url) {
+                load(url, {
+                    autoplay: true,
+                    onend: () => {
+                        setCurrentIndex(i => {
+                            const next = i + 1
+                            return next < (playlist?.length || 0) ? next : 0
+                        })
+                    },
+                })
+            }
+            return
+        }
+        togglePlayPause()
     }
 
     const handleSeek = (e) => {

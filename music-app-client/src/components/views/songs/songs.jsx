@@ -7,20 +7,20 @@ import { useAudioPlayerContext } from "react-use-audio-player";
 import ErrorPage from "../error-page/error-page";
 import { useParams } from "react-router";
 import LoadingPage from "../loading-page/loading-page";
+import { usePlayer } from "../../../contexts/playerContext";
 
 
+function PlayPauseButton({song, songs, index, url}){
+  const { setPlaylist, setCurrentIndex } = usePlayer();
+  const { load, togglePlayPause, isPlaying, src } = useAudioPlayerContext()
 
-function PlayPauseButton({song, url}){
-  const { load, togglePlayPause, isPaused, isPlaying, src } = useAudioPlayerContext()
     function handlePlayButton() {
+    
       if (src === url){
         return togglePlayPause()
       }
-      console.log(url)
-      load(url, {
-        autoplay: true,
-      
-      })
+      setPlaylist(songs)
+      setCurrentIndex(index)
     }
 
     return (
@@ -60,11 +60,11 @@ export default function Songs() {
       <h1>Explore songs</h1>
       <div>
         {songs.length > 0 ? (
-          songs.map((song) => {
+          songs.map((song, index, array) => {
             return (
               <li key={song._id}>
                 <p>{song.title}</p>
-                <PlayPauseButton song={song} url={song.url}/>
+                <PlayPauseButton song={song} songs={array} index={index} url={song.url}/>
               </li>
             );
           })

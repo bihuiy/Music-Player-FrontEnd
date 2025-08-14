@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from "react"
 
-const playerContest = createContext()
+const PlayerContext = createContext()
 
 const PlayerProvider = ({children}) => {
     const [currentIndex, setCurrentIndex] = useState(0)
@@ -13,4 +13,5 @@ const PlayerProvider = ({children}) => {
     )
 }
 
-export {playerContest, PlayerProvider}
+export const usePlayer = () => useContext(PlayerContext)
+export {PlayerProvider}
