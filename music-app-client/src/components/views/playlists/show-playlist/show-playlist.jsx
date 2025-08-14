@@ -2,14 +2,22 @@ import "./Show-playlist.css";
 import { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router";
 import { deletePlaylist, getPlaylist } from "../../../../services/playlists";
-
-import LoadingPage from "../../LoadingPage/LoadingPage";
 import { UserContext } from "../../../../contexts/UserContext";
+
+// Page components
+import LoadingPage from "../../LoadingPage/LoadingPage";
 import ErrorPage from "../../ErrorPage/ErrorPage";
+import SongItem from "../../Songs/SongItem";
+import AddToPlaylistModal from "../../Songs/AddToPlaylistModal";
+import { addSongToPlaylist } from "../../../../services/songs";
+import { createdPlaylistsShow } from "../../../../services/profiles";
 
 const ShowPlaylist = () => {
   const { playlistId } = useParams();
   const [playlist, setPlaylist] = useState(null);
+  const [playlists, setPlaylists] = useState([]);
+  const [modalShow, setModalShow] = useState(false);
+  const [selectedSong, setSelectedSong] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const { user } = useContext(UserContext);
@@ -29,6 +37,25 @@ const ShowPlaylist = () => {
     };
     getPlaylistData();
   }, [playlistId]);
+
+  // Fetch current login user's playlists
+  useEffect(() => {
+    const getCreatedPlaylistsData = async () => {
+      try {
+        const { data } = await createdPlaylistsShow(user._id);
+        setPlaylists(data.createdPlaylists);
+      } catch (error) {
+        setError(error);
+      }
+    };
+    getCreatedPlaylistsData();
+  }, []);
+
+  // Open modal and set the song to add
+  function handleOpenModal(song) {
+    setSelectedSong(song);
+    setModalShow(true);
+  }
 
   const handleDelete = async () => {
     try {
@@ -82,19 +109,33 @@ const ShowPlaylist = () => {
         </div>
       </div>
 
-      {playlist.songs.length > 0 ? (
-        <ul>
-          {playlist.songs.map((song) => {
+      <div>
+        {playlist.songs.length > 0 ? (
+          playlist.songs.map((song, index) => {
             return (
-              <li key={song._id}>
-                {song.title} {song.artist ? `by ${song.artist}` : ""}
-              </li>
+              <SongItem
+                key={song._id}
+                song={song}
+                songs={playlist.songs}
+                index={index}
+                user={user}
+                handleOpenModal={handleOpenModal}
+              />
             );
-          })}
-        </ul>
-      ) : (
-        <p>Playlist is empty</p>
-      )}
+          })
+        ) : (
+          <p>There are currently no songs to display</p>
+        )}
+        {selectedSong && (
+          <AddToPlaylistModal
+            show={modalShow}
+            onHide={() => setModalShow(false)}
+            song={selectedSong}
+            playlists={playlists}
+            onAdd={addSongToPlaylist}
+          />
+        )}
+      </div>
     </main>
   );
 };

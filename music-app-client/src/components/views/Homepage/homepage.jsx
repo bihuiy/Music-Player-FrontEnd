@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { useNavigate } from "react-router";
+import { UserContext } from "../../../contexts/UserContext";
 import "./Homepage.css";
 import "../Playlists/Explore-playlists/Explore-playlists.css";
 import { homePage } from "../../../services/homepage";
@@ -6,11 +8,21 @@ import PlaylistTile from "../../Playlist-tile/Playlist-tile";
 
 // Page components
 import ErrorPage from "../ErrorPage/ErrorPage";
+import SongItem from "../Songs/SongItem";
+import AddToPlaylistModal from "../songs/AddToPlaylistModal";
+import { addSongToPlaylist } from "../../../services/songs";
+import { createdPlaylistsShow } from "../../../services/profiles";
 
 export default function Homepage() {
+  const { user } = useContext(UserContext);
+  const navigate = useNavigate();
+
   // * State
   const [topPlaylists, setTopPlaylists] = useState([]);
   const [topSongs, setTopSongs] = useState([]);
+  const [playlists, setPlaylists] = useState([]);
+  const [modalShow, setModalShow] = useState(false);
+  const [selectedSong, setSelectedSong] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -20,12 +32,30 @@ export default function Homepage() {
         setTopPlaylists(data.topPlaylists);
         setTopSongs(data.topSongs);
       } catch (error) {
-        console.log(error);
         setError(error);
       }
     };
     getHomepageData();
   }, []);
+
+  // Fetch current login user's playlists
+  useEffect(() => {
+    const getCreatedPlaylistsData = async () => {
+      try {
+        const { data } = await createdPlaylistsShow(user._id);
+        setPlaylists(data.createdPlaylists);
+      } catch (error) {
+        setError(error);
+      }
+    };
+    getCreatedPlaylistsData();
+  }, []);
+
+  // Open modal and set the song to add
+  function handleOpenModal(song) {
+    setSelectedSong(song);
+    setModalShow(true);
+  }
 
   if (error) return <ErrorPage error={error} />;
 
@@ -46,14 +76,35 @@ export default function Homepage() {
           <p>There are no Playlists</p>
         )}
       </div>
-      <h2>Check out our top songs:</h2>
-      <ul>
-        {topSongs.map((song) => (
-          <li key={song._id}>
-            {song.title} by {song.artist}
-          </li>
-        ))}
-      </ul>
+
+      <div>
+        <h2>Check out our top songs:</h2>
+        {topSongs.length > 0 ? (
+          topSongs.map((song, index) => {
+            return (
+              <SongItem
+                key={song._id}
+                song={song}
+                songs={topSongs}
+                index={index}
+                user={user}
+                handleOpenModal={handleOpenModal}
+              />
+            );
+          })
+        ) : (
+          <p>There are no songs</p>
+        )}
+        {selectedSong && (
+          <AddToPlaylistModal
+            show={modalShow}
+            onHide={() => setModalShow(false)}
+            song={selectedSong}
+            playlists={playlists}
+            onAdd={addSongToPlaylist}
+          />
+        )}
+      </div>
     </>
   );
 }
