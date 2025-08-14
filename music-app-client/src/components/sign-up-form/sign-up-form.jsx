@@ -1,9 +1,9 @@
-import './sign-up-form.css'
+import './Sign-up-form.css'
 import '../../styles/forms.css'
 import { useState, useContext } from 'react'
 import { signUp } from '../../services/users'
 import { useNavigate } from 'react-router'
-import { UserContext } from '../../contexts/userContext'
+import { UserContext } from '../../contexts/UserContext'
 import { setToken, getUser } from '../../utils/auth'
 
 export default function SignUpForm(){

@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { profileShow } from "../../../services/profiles";
-import "./profile.css";
+import "./Profile.css";
 
 // Page components
-import ErrorPage from "../error-page/error-page";
+import ErrorPage from "../ErrorPage/ErrorPage";
 import { Link, useParams } from "react-router";
-import LoadingPage from "../loading-page/loading-page";
+import LoadingPage from "../LoadingPage/LoadingPage";
 
 export default function Profile() {
   const { userId } = useParams();
