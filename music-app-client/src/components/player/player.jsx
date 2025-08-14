@@ -13,6 +13,7 @@ const Player = () => {
     const {togglePlayPause, isPlaying, src, load, seek, getPosition, setVolume, volume, toggleMute, isMuted, duration,} = useAudioPlayerContext()
     
     const[position, setPosition] = useState(0)
+    const currentTrack = Array.isArray(playlist) ? playlist[currentIndex]: null
 
     const skipTrack = (n) => {
         setCurrentIndex(i => {
@@ -75,7 +76,9 @@ const handlePlayButtonClick = () =>{
 
     return(
         <div className='playerBar'>
-            <div className="songInfo"></div>
+            <div className="songInfo">
+                {currentTrack ? currentTrack.title : "Nothing is playing"}
+            </div>
             <div className="playerControls">
                 <div className="controlButtons">
                     <button className="skipBack" onClick={() => skipTrack(-1)}><IoMdSkipBackward /></button>
