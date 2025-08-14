@@ -15,7 +15,7 @@ export default function LikeButton({ song, user }) {
   const navigate = useNavigate()
 
   const handleClick = async () => {
-    if (!user._id) return navigate("/user/sign-up")
+    if (!user?._id) return navigate("/user/sign-up")
     try {
       if (liked) {
         await unlikeSong(song._id, user._id);

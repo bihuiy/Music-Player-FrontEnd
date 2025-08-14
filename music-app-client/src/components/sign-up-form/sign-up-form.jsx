@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router'
 import { UserContext } from '../../contexts/UserContext'
 import { setToken, getUser } from '../../utils/auth'
 import ImageUploadField from '../ImageUploadField/ImageUploadField'
+import { Link } from 'react-router'
 
 export default function SignUpForm(){
     const {setUser} = useContext(UserContext)
@@ -68,6 +69,7 @@ export default function SignUpForm(){
             {errors.passwordConfirmation && <p className='errorMessage'>{errors.passwordConfirmation}</p>}
 
             <button type="submit" disabled={isUploading}>{isUploading ? 'uploading...' : 'Sign-up'}</button>
+            <Link to={"/user/sign-in"}>Already have an account?</Link>
         </form>
     )
 }
