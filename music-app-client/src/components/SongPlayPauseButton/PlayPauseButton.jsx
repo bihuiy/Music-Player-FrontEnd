@@ -1,23 +1,22 @@
 import { useAudioPlayerContext } from "react-use-audio-player";
+import { usePlayer } from "../../contexts/playerContext";
 
-export default function PlayPauseButton({ song, url }) {
-  const { load, togglePlayPause, isPaused, isPlaying, src } =
-    useAudioPlayerContext();
+export default function PlayPauseButton({song, songs, index, url}){
+  const { setPlaylist, setCurrentIndex } = usePlayer();
+  const { load, togglePlayPause, isPlaying, src } = useAudioPlayerContext()
 
-  // Handle play/pause button click
-  function handlePlayButton() {
-    if (src === url) {
-      // If the same song is currently loaded, toggle play/pause
-      return togglePlayPause();
-    } // else, load the new song and autoplay
-    load(url, {
-      autoplay: true,
-    });
+    function handlePlayButton() {
+    
+      if (src === url){
+        return togglePlayPause()
+      }
+      setPlaylist(songs)
+      setCurrentIndex(index)
+    }
+
+    return (
+        <button onClick={handlePlayButton}>
+            {isPlaying && (src === url) ? "Pause" : "Play"}
+        </button>
+    )
   }
-
-  return (
-    <button onClick={handlePlayButton}>
-      {isPlaying && src === url ? "Pause" : "Play"}
-    </button>
-  );
-}

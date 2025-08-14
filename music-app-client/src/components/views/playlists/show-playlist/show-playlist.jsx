@@ -2,9 +2,10 @@ import "./Show-playlist.css";
 import { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router";
 import { deletePlaylist, getPlaylist } from "../../../../services/playlists";
-import ErrorPage from "../../ErrorPage/ErrorPage";
+
 import LoadingPage from "../../LoadingPage/LoadingPage";
 import { UserContext } from "../../../../contexts/UserContext";
+import ErrorPage from "../../ErrorPage/ErrorPage";
 
 const ShowPlaylist = () => {
   const { playlistId } = useParams();
