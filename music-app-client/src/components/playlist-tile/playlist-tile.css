@@ -15,20 +15,26 @@
     display: block;
 }
 
-.bookmarkButton {
+.bookmarkIcon {
     position: absolute;
     top: 8px;
     right: 8px;
-    z-index: 3;
+    z-index: 9;
     width: 32px;
     height: 32px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(0,0,0,0.5);
+    display: grid;
+    place-items: center;
+    padding: 0;
+    background: rgba(0, 0, 0, 0.608);
     border: 0;
-    border-radius: 50%;
+    border-radius: 30%;
     color: #fff;
-    font-size: 18px;
+    font-size: 23px;
     line-height: 1;
 }
+
+.bookmarkIcon:hover{
+    filter: brightness(75%);
+}
+
+.bookmarkIcon:focus { outline: none; box-shadow: none; }

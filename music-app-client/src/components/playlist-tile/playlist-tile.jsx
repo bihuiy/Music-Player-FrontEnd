@@ -10,7 +10,7 @@ export default function PlaylistTile({playlist}) {
         <Link to={`/playlists/${playlist._id}`}>
             <div className='playlistCard'>
                 <div className='coverArtWrapper'>
-                    {user && <BookmarkButton className ="bookmarkButton" playlist={playlist}/>}
+                    {user && <BookmarkButton playlist={playlist}/>}
                     {playlist.coverArt 
                     ?(
                         <img className='coverArt'
