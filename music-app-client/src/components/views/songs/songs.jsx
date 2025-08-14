@@ -60,11 +60,11 @@ export default function Songs() {
       <h1>Explore songs</h1>
       <div>
         {songs.length > 0 ? (
-          songs.map((song, index, array) => {
+          songs.map((song, index, songs) => {
             return (
               <li key={song._id}>
                 <p>{song.title}</p>
-                <PlayPauseButton song={song} songs={array} index={index} url={song.url}/>
+                <PlayPauseButton song={song} songs={songs} index={index} url={song.url}/>
               </li>
             );
           })

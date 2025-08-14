@@ -9,7 +9,7 @@ import { usePlayer } from '../../contexts/playerContext';
 
 const Player = () => {
     const { playlist, setPlaylist, currentIndex, setCurrentIndex } = usePlayer()
-    const {togglePlayPause, isPlaying, src, load, seek, getPosition, setVolume, toggleMute, isMuted, duration,} = useAudioPlayerContext()
+    const {togglePlayPause, isPlaying, src, load, seek, getPosition, setVolume, volume, toggleMute, isMuted, duration,} = useAudioPlayerContext()
     
     const[position, setPosition] = useState(0)
 
@@ -22,6 +22,7 @@ const Player = () => {
 
         load(url, {
             autoplay: true,
+            initialVolume: volume,
             onend: () => {
             setCurrentIndex(i => {
                 const next = i + 1
@@ -30,6 +31,10 @@ const Player = () => {
             },
         })
     }, [playlist, currentIndex, load, setCurrentIndex])
+
+    useEffect(() => {
+        if (src != null) setVolume(volume)
+    }, [src, volume, setVolume])
 
     useEffect(() => {
         if(!src) {setPosition(0); return}
@@ -76,7 +81,7 @@ const handlePlayButtonClick = () =>{
             </div>
             <div className="volumeControls">
                 <button className='muteButton' onClick={(toggleMute)}>{isMuted ? <GoMute /> : <GoUnmute />}</button>
-                <input type="range" min={0} max={1} step={0.01} className="volumeBar" onChange={(e) => setVolume(parseFloat(e.target.value))}/>
+                <input type="range" min={0} max={1} step={0.01} className="volumeBar" value={volume ?? 1} onChange={(e) => setVolume(parseFloat(e.target.value))}/>
             </div>
         </div>
     )
