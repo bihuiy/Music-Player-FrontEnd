@@ -4,9 +4,9 @@ import "./Songs.css";
 
 
 // Page components
-import ErrorPage from "../error-page/error-page";
+import ErrorPage from "../ErrorPage/ErrorPage";
 import { useParams } from "react-router";
-import LoadingPage from "../loading-page/loading-page";
+import LoadingPage from "../loadingPage/loadingPage";
 import { usePlayer } from "../../../contexts/playerContext";
 // * Services / utils
 import { getAllSongs, addSongToPlaylist } from "../../../services/songs";
@@ -15,30 +15,6 @@ import { searchSongs } from "../../../utils/songSearch";
 // * Page components
 import PlayPauseButton from "../../SongPlayPauseButton/PlayPauseButton";
 import AddToPlaylistModal from "./AddToPlaylistModal";
-
-
-
-function PlayPauseButton({song, songs, index, url}){
-  const { setPlaylist, setCurrentIndex } = usePlayer();
-  const { load, togglePlayPause, isPlaying, src } = useAudioPlayerContext()
-
-    function handlePlayButton() {
-    
-      if (src === url){
-        return togglePlayPause()
-      }
-      setPlaylist(songs)
-      setCurrentIndex(index)
-    }
-
-    return (
-        <button onClick={handlePlayButton}>
-            {isPlaying && (src === url) ? "Pause" : "Play"}
-        </button>
-    )
-  }
-
-
 
 
 
@@ -99,14 +75,6 @@ export default function Songs() {
       <h1>Explore songs</h1>
       <div>
 
-        {songs.length > 0 ? (
-          songs.map((song, index, songs) => {
-            return (
-              <li key={song._id}>
-                <p>{song.title}</p>
-                <PlayPauseButton song={song} songs={songs} index={index} url={song.url}/>
-              </li>
-
         <input
           type="text"
           placeholder="Search by title or artist..."
@@ -116,7 +84,7 @@ export default function Songs() {
       </div>
       <div>
         {filteredSongs.length > 0 ? (
-          filteredSongs.map((song) => {
+          filteredSongs.map((song, index, songs) => {
             return (
               <div key={song._id}>
                 <p>
@@ -125,7 +93,7 @@ export default function Songs() {
                 <button onClick={() => handleOpenModal(song)}>
                   Add to Playlist
                 </button>
-                <PlayPauseButton song={song} url={song.url} />
+                <PlayPauseButton song={song} songs={songs} index={index} url={song.url} />
               </div>
 
             );
