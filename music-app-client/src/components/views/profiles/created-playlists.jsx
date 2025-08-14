@@ -4,7 +4,7 @@ import "./profile.css";
 
 // Page components
 import ErrorPage from "../error-page/error-page";
-import { Link, useParams } from "react-router";
+import { useParams } from "react-router";
 import LoadingPage from "../loading-page/loading-page";
 
 export default function CreatedPlaylists() {
@@ -37,7 +37,7 @@ export default function CreatedPlaylists() {
 
   return (
     <>
-      <h1>{`${profileUser.username}`}'s created playlists</h1>
+      <h1>{profileUser.username}'s created playlists</h1>
       {/* user's profile photo */}
       <p>{profileUser.username}</p>
       <hr />
@@ -45,9 +45,9 @@ export default function CreatedPlaylists() {
         {createdPlaylists.length > 0 ? (
           createdPlaylists.map((createdPlaylist) => {
             return (
-              <li key={createdPlaylist._id}>
+              <div key={createdPlaylist._id}>
                 <p>{createdPlaylist.title}</p>
-              </li>
+              </div>
             );
           })
         ) : (

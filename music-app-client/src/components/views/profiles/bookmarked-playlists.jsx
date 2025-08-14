@@ -4,7 +4,7 @@ import "./profile.css";
 
 // Page components
 import ErrorPage from "../error-page/error-page";
-import { Link, useParams } from "react-router";
+import { useParams } from "react-router";
 import LoadingPage from "../loading-page/loading-page";
 
 export default function BookmarkedPlaylists() {
@@ -37,7 +37,7 @@ export default function BookmarkedPlaylists() {
 
   return (
     <>
-      <h1>{`${profileUser.username}`}'s bookmarked playlists</h1>
+      <h1>{profileUser.username}'s bookmarked playlists</h1>
       {/* user's profile photo */}
       <p>{profileUser.username}</p>
       <hr />
@@ -45,9 +45,9 @@ export default function BookmarkedPlaylists() {
         {bookmarkedPlaylists.length > 0 ? (
           bookmarkedPlaylists.map((bookmarkedPlaylist) => {
             return (
-              <li key={bookmarkedPlaylist._id}>
+              <div key={bookmarkedPlaylist._id}>
                 <p>{bookmarkedPlaylist.title}</p>
-              </li>
+              </div>
             );
           })
         ) : (

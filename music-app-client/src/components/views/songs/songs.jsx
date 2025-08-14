@@ -1,42 +1,54 @@
 import { useEffect, useState } from "react";
-import { getAllSongs } from "../../../services/songs";
-import "./songs.css";
+import { getAllSongs, addSongToPlaylist } from "../../../services/songs";
 import { useAudioPlayerContext } from "react-use-audio-player";
+import { createdPlaylistsShow } from "../../../services/profiles";
+import AddToPlaylistModal from "./AddToPlaylistModal";
+import "./songs.css";
 
-// Page components
+// * Page components
 import ErrorPage from "../error-page/error-page";
-import { useParams } from "react-router";
 import LoadingPage from "../loading-page/loading-page";
+import { useParams } from "react-router";
+import { useContext } from "react";
+import { UserContext } from "../../../contexts/userContext";
 
+// * Play/Pause button components
+function PlayPauseButton({ song, url }) {
+  const { load, togglePlayPause, isPaused, isPlaying, src } =
+    useAudioPlayerContext();
 
-
-function PlayPauseButton({song, url}){
-  const { load, togglePlayPause, isPaused, isPlaying, src } = useAudioPlayerContext()
-    function handlePlayButton() {
-      if (src === url){
-        return togglePlayPause()
-      }
-      console.log(url)
-      load(url, {
-        autoplay: true,
-      
-      })
-    }
-
-    return (
-        <button onClick={handlePlayButton}>
-            {isPlaying && (src === url) ? "Pause" : "Play"}
-        </button>
-    )
+  // Handle play/pause button click
+  function handlePlayButton() {
+    if (src === url) {
+      // If the same song is currently loaded, toggle play/pause
+      return togglePlayPause();
+    } // else, load the new song and autoplay
+    load(url, {
+      autoplay: true,
+    });
   }
 
+  return (
+    <button onClick={handlePlayButton}>
+      {isPlaying && src === url ? "Pause" : "Play"}
+    </button>
+  );
+}
+
 export default function Songs() {
-  const { userId } = useParams();
+  // get the current login user details
+  const { user } = useContext(UserContext);
+  // get the userId from url
+  const { userId: urlUserId } = useParams();
   // * State
   const [songs, setSongs] = useState([]);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [modalShow, setModalShow] = useState(false);
+  const [selectedSong, setSelectedSong] = useState(null);
+  const [playlists, setPlaylists] = useState([]);
 
+  // Fetch all songs
   useEffect(() => {
     const getAllSongsData = async () => {
       setIsLoading(true);
@@ -52,6 +64,27 @@ export default function Songs() {
     getAllSongsData();
   }, []);
 
+  // Fetch current login user's playlists
+  useEffect(() => {
+    const getCreatedPlaylistsData = async () => {
+      try {
+        const { data } = await createdPlaylistsShow(user._id);
+        setPlaylists(data.createdPlaylists);
+      } catch (error) {
+        console.log(`Fetch current login user's playlists: ${error}`);
+
+        setError(error);
+      }
+    };
+    getCreatedPlaylistsData();
+  }, [urlUserId]);
+
+  // Open modal and set the song to add
+  function handleOpenModal(song) {
+    setSelectedSong(song);
+    setModalShow(true);
+  }
+
   if (error) return <ErrorPage error={error} />;
   if (isLoading) return <LoadingPage />;
 
@@ -62,16 +95,30 @@ export default function Songs() {
         {songs.length > 0 ? (
           songs.map((song) => {
             return (
-              <li key={song._id}>
+              <div key={song._id}>
                 <p>{song.title}</p>
-                <PlayPauseButton song={song} url={song.url}/>
-              </li>
+                <button onClick={() => handleOpenModal(song)}>
+                  Add to Playlist
+                </button>
+                <PlayPauseButton song={song} url={song.url} />
+              </div>
             );
           })
         ) : (
           <p>There are currently no songs to display</p>
         )}
       </div>
+
+      {/* Add to Playlist Modal */}
+      {selectedSong && (
+        <AddToPlaylistModal
+          show={modalShow}
+          onHide={() => setModalShow(false)}
+          song={selectedSong}
+          playlists={playlists}
+          onAdd={addSongToPlaylist}
+        />
+      )}
     </>
   );
 }

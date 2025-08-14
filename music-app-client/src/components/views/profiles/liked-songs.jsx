@@ -4,11 +4,12 @@ import "./profile.css";
 
 // Page components
 import ErrorPage from "../error-page/error-page";
-import { Link, useParams } from "react-router";
+import { useParams } from "react-router";
 import LoadingPage from "../loading-page/loading-page";
 
 export default function LikedSongs() {
   const { userId } = useParams();
+  
   // * State
   const [profileUser, setProfileUser] = useState(null);
   const [likedSongs, setLikedSongs] = useState([]);
@@ -37,7 +38,7 @@ export default function LikedSongs() {
 
   return (
     <>
-      <h1>{`${profileUser.username}`}'s liked songs</h1>
+      <h1>{profileUser.username}'s liked songs</h1>
       {/* user's profile photo */}
       <p>{profileUser.username}</p>
       <hr />
@@ -45,9 +46,9 @@ export default function LikedSongs() {
         {likedSongs.length > 0 ? (
           likedSongs.map((likedSong) => {
             return (
-              <li key={likedSong._id}>
+              <div key={likedSong._id}>
                 <p>{likedSong.title}</p>
-              </li>
+              </div>
             );
           })
         ) : (
