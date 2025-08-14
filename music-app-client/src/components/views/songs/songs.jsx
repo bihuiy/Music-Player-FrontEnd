@@ -2,21 +2,17 @@ import { useEffect, useState, useContext } from "react";
 import { UserContext } from "../../../contexts/UserContext";
 import "./Songs.css";
 
-
-// Page components
+// * Page components
 import ErrorPage from "../ErrorPage/ErrorPage";
-import { useParams } from "react-router";
-import LoadingPage from "../loadingPage/loadingPage";
-import { usePlayer } from "../../../contexts/playerContext";
+import LoadingPage from "../LoadingPage/LoadingPage";
+import PlayPauseButton from "../../SongPlayPauseButton/PlayPauseButton";
+import AddToPlaylistModal from "./AddToPlaylistModal";
+import LikeButton from "../../LikeButton/LikeButton";
+
 // * Services / utils
 import { getAllSongs, addSongToPlaylist } from "../../../services/songs";
 import { createdPlaylistsShow } from "../../../services/profiles";
 import { searchSongs } from "../../../utils/songSearch";
-// * Page components
-import PlayPauseButton from "../../SongPlayPauseButton/PlayPauseButton";
-import AddToPlaylistModal from "./AddToPlaylistModal";
-
-
 
 export default function Songs() {
   const { user } = useContext(UserContext);
@@ -74,7 +70,6 @@ export default function Songs() {
     <>
       <h1>Explore songs</h1>
       <div>
-
         <input
           type="text"
           placeholder="Search by title or artist..."
@@ -93,9 +88,14 @@ export default function Songs() {
                 <button onClick={() => handleOpenModal(song)}>
                   Add to Playlist
                 </button>
-                <PlayPauseButton song={song} songs={songs} index={index} url={song.url} />
+                <PlayPauseButton
+                  song={song}
+                  songs={songs}
+                  index={index}
+                  url={song.url}
+                />
+                <LikeButton song={song} user={user} />
               </div>
-
             );
           })
         ) : (
