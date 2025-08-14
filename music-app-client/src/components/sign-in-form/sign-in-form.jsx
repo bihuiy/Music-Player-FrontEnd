@@ -2,7 +2,7 @@ import '../../styles/forms.css'
 import './Sign-in-form.css'
 import { useState, useContext } from 'react'
 import {signIn } from '../../services/users'
-import { useNavigate } from 'react-router'
+import { Link, useNavigate } from 'react-router'
 import { setToken, getUser } from '../../utils/auth'
 import { UserContext } from '../../contexts/UserContext'
 
@@ -47,6 +47,7 @@ export default function SignUpForm(){
 
             {errors.message && <p className='error-message'>Please ensure your username/email and password are correct</p>}
             <button type="submit">Sign-In</button> 
+            <Link to={"/user/sign-up"}>Don't have an account?</Link>
         </form>
     )
 }

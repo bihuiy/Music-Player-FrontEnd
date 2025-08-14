@@ -12,7 +12,7 @@ export default function PlayPauseButton({song, songs, index, url}){
   const navigate = useNavigate()
 
     function handlePlayButton() {
-      if (!user._id) return navigate("/user/sign-up")
+      if (!user?._id) return navigate("/user/sign-up")
       if (src === url){
         return togglePlayPause()
       }
