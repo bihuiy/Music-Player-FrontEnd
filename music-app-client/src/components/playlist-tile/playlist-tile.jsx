@@ -1,11 +1,16 @@
 import './Playlist-tile.css'
 import { Link } from 'react-router'
+import BookmarkButton from '../BookmarkButton/BookmarkButton'
+import { UserContext } from '../../contexts/UserContext'
+import { useContext } from 'react'
 
 export default function PlaylistTile({playlist}) {
+    const {user} = useContext(UserContext)
     return(
         <Link to={`/playlists/${playlist._id}`}>
             <div className='playlistCard'>
                 <div className='coverArtWrapper'>
+                    {user && <BookmarkButton className ="bookmarkButton" playlist={playlist}/>}
                     {playlist.coverArt 
                     ?(
                         <img className='coverArt'

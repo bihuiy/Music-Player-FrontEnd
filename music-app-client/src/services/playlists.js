@@ -34,8 +34,9 @@ export const deletePlaylist = (id) => {
 }
 
 export const bookmarkPlaylist = (id) => {
-    return axios.post(BASE_URL + `/${id}/bookmark`,{
-        headers: {Authorization: `Bearer ${getToken()}`}
+    return axios.post(BASE_URL + `/${id}/bookmark`,
+        null,
+        {headers: {Authorization: `Bearer ${getToken()}`}
     }
     )
 }

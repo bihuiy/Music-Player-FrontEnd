@@ -1,9 +1,6 @@
 
-
-
-
-
 .coverArtWrapper{
+    position:relative;
     width: 100%;
     aspect-ratio: 1 / 1;
     overflow: hidden;
@@ -16,4 +13,22 @@
     height: 100%;
     object-fit: cover;
     display: block;
+}
+
+.bookmarkButton {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 3;
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.5);
+    border: 0;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 18px;
+    line-height: 1;
 }
