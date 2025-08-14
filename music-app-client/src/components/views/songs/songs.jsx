@@ -5,9 +5,8 @@ import "./Songs.css";
 // * Page components
 import ErrorPage from "../ErrorPage/ErrorPage";
 import LoadingPage from "../LoadingPage/LoadingPage";
-import PlayPauseButton from "../../SongPlayPauseButton/PlayPauseButton";
+import SongItem from "./SongItem";
 import AddToPlaylistModal from "./AddToPlaylistModal";
-import LikeButton from "../../LikeButton/LikeButton";
 
 // * Services / utils
 import { getAllSongs, addSongToPlaylist } from "../../../services/songs";
@@ -19,12 +18,12 @@ export default function Songs() {
 
   // State
   const [songs, setSongs] = useState([]);
-  const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [playlists, setPlaylists] = useState([]);
   const [modalShow, setModalShow] = useState(false);
   const [selectedSong, setSelectedSong] = useState(null);
-  const [playlists, setPlaylists] = useState([]);
   const [query, setQuery] = useState("");
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   // Fetch all songs
   useEffect(() => {
@@ -79,23 +78,16 @@ export default function Songs() {
       </div>
       <div>
         {filteredSongs.length > 0 ? (
-          filteredSongs.map((song, index, songs) => {
+          filteredSongs.map((song, index) => {
             return (
-              <div key={song._id}>
-                <p>
-                  {song.title} by {song.artist}
-                </p>
-                <button onClick={() => handleOpenModal(song)}>
-                  Add to Playlist
-                </button>
-                <PlayPauseButton
-                  song={song}
-                  songs={songs}
-                  index={index}
-                  url={song.url}
-                />
-                <LikeButton song={song} user={user} />
-              </div>
+              <SongItem
+                key={song._id}
+                song={song}
+                songs={songs}
+                index={index}
+                user={user}
+                handleOpenModal={handleOpenModal}
+              />
             );
           })
         ) : (
@@ -103,18 +95,15 @@ export default function Songs() {
         )}
       </div>
 
-      {/* Add to Playlist Modal */}
-      <div>
-        {selectedSong && (
-          <AddToPlaylistModal
-            show={modalShow}
-            onHide={() => setModalShow(false)}
-            song={selectedSong}
-            playlists={playlists}
-            onAdd={addSongToPlaylist}
-          />
-        )}
-      </div>
+      {selectedSong && (
+        <AddToPlaylistModal
+          show={modalShow}
+          onHide={() => setModalShow(false)}
+          song={selectedSong}
+          playlists={playlists}
+          onAdd={addSongToPlaylist}
+        />
+      )}
     </>
   );
 }

@@ -6,7 +6,7 @@ import { FcLike, FcLikePlaceholder } from "react-icons/fc";
 import ErrorPage from "../Views/ErrorPage/ErrorPage";
 
 export default function LikeButton({ song, user }) {
-  const [liked, setLiked] = useState();
+  const [liked, setLiked] = useState(song.userLikes.includes(user._id));
   const [likesCount, setLikesCount] = useState(song.userLikes.length);
   const [error, setError] = useState(null);
 

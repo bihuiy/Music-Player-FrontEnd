@@ -6,6 +6,10 @@ import "./Profile.css";
 import ErrorPage from "../ErrorPage/ErrorPage";
 import { Link, useParams } from "react-router";
 import LoadingPage from "../LoadingPage/LoadingPage";
+import SongItem from "../Songs/SongItem";
+import AddToPlaylistModal from "../Songs/AddToPlaylistModal";
+import { addSongToPlaylist } from "../../../services/songs";
+import { createdPlaylistsShow } from "../../../services/profiles";
 
 export default function Profile() {
   const { userId } = useParams();
@@ -14,6 +18,8 @@ export default function Profile() {
   const [createdPlaylists, setCreatedPlaylists] = useState([]);
   const [bookmarkedPlaylists, setBookmarkedPlaylists] = useState([]);
   const [likedSongs, setLikedSongs] = useState([]);
+  const [modalShow, setModalShow] = useState(false);
+  const [selectedSong, setSelectedSong] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -34,6 +40,25 @@ export default function Profile() {
     };
     getProfileData();
   }, [userId]);
+
+  // Fetch current login user's playlists
+  useEffect(() => {
+    const getCreatedPlaylistsData = async () => {
+      try {
+        const { data } = await createdPlaylistsShow(user._id);
+        setPlaylists(data.createdPlaylists);
+      } catch (error) {
+        setError(error);
+      }
+    };
+    getCreatedPlaylistsData();
+  }, []);
+
+  // Open modal and set the song to add
+  function handleOpenModal(song) {
+    setSelectedSong(song);
+    setModalShow(true);
+  }
 
   if (error) return <ErrorPage error={error} />;
   if (isLoading) return <LoadingPage />;
@@ -82,15 +107,29 @@ export default function Profile() {
           to={`/user/${profileUser._id}/liked-songs`}
         >{`${profileUser.username}'s liked songs`}</Link>
         {likedSongs.length > 0 ? (
-          likedSongs.map((likedSong) => {
+          likedSongs.map((likedSong, index) => {
             return (
-              <li key={likedSong._id}>
-                <p>{likedSong.title}</p>
-              </li>
+              <SongItem
+                key={song._id}
+                song={song}
+                songs={likedSong}
+                index={index}
+                user={user}
+                handleOpenModal={handleOpenModal}
+              />
             );
           })
         ) : (
           <p>There are currently no songs to display</p>
+        )}
+        {selectedSong && (
+          <AddToPlaylistModal
+            show={modalShow}
+            onHide={() => setModalShow(false)}
+            song={selectedSong}
+            playlists={playlists}
+            onAdd={addSongToPlaylist}
+          />
         )}
       </div>
     </>
