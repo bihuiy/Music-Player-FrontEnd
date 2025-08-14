@@ -9,7 +9,10 @@ import LoadingPage from "../../LoadingPage/LoadingPage";
 import ErrorPage from "../../ErrorPage/ErrorPage";
 import SongItem from "../../Songs/SongItem";
 import AddToPlaylistModal from "../../Songs/AddToPlaylistModal";
+
+// Services / utils
 import { addSongToPlaylist } from "../../../../services/songs";
+import { removeSongFromPlaylist } from "../../../../services/playlists";
 import { createdPlaylistsShow } from "../../../../services/profiles";
 
 const ShowPlaylist = () => {
@@ -62,7 +65,17 @@ const ShowPlaylist = () => {
       await deletePlaylist(playlistId);
       navigate("/playlists");
     } catch (error) {
-      console.log(error);
+      setError(error);
+    }
+  };
+
+  const handleDeleteSong = async (songId) => {
+    try {
+      await removeSongFromPlaylist(playlistId, songId);
+      const { data } = await getPlaylist(playlistId);
+      setPlaylist(data);
+    } catch (error) {
+      setError(error);
     }
   };
 
@@ -113,14 +126,18 @@ const ShowPlaylist = () => {
         {playlist.songs.length > 0 ? (
           playlist.songs.map((song, index) => {
             return (
-              <SongItem
-                key={song._id}
-                song={song}
-                songs={playlist.songs}
-                index={index}
-                user={user}
-                handleOpenModal={handleOpenModal}
-              />
+              <div key={song._id}>
+                <SongItem
+                  song={song}
+                  songs={playlist.songs}
+                  index={index}
+                  user={user}
+                  handleOpenModal={handleOpenModal}
+                />
+                <button onClick={() => handleDeleteSong(song._id)}>
+                  Delete
+                </button>
+              </div>
             );
           })
         ) : (

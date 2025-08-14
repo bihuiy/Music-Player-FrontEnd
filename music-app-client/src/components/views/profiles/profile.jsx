@@ -18,7 +18,7 @@ import PlaylistTile from "../../Playlist-tile/Playlist-tile";
 
 export default function Profile() {
   const { userId } = useParams();
-  const {user} = useContext(UserContext)
+  const { user } = useContext(UserContext);
   // * State
   const [profileUser, setProfileUser] = useState(null);
   const [createdPlaylists, setCreatedPlaylists] = useState([]);
@@ -28,7 +28,6 @@ export default function Profile() {
   const [selectedSong, setSelectedSong] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  
 
   useEffect(() => {
     const getProfileData = async () => {
@@ -55,7 +54,6 @@ export default function Profile() {
         const { data } = await createdPlaylistsShow(user._id);
         setCreatedPlaylists(data.createdPlaylists);
       } catch (error) {
-        console.log(error)
         setError(error);
       }
     };
