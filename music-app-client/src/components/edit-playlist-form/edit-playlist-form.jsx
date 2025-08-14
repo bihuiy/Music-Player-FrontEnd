@@ -2,6 +2,7 @@ import '../../styles/forms.css'
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
 import { editPlaylist, getPlaylist } from '../../services/playlists'
+import ImageUploadField from '../ImageUploadField/ImageUploadField'
 
 const EditPlaylistForm = ({playlist}) =>{
     const [formData, setFormData] = useState({
@@ -10,6 +11,7 @@ const EditPlaylistForm = ({playlist}) =>{
     const [errors, setErrors] = useState({})
     const [submitting, setSubmitting] = useState(false)
     const navigate = useNavigate()
+    const [isUploading, setIsUploading] = useState(false)
 
     const [prefillError, setPrefillError] = useState('')
 
@@ -45,26 +47,26 @@ const EditPlaylistForm = ({playlist}) =>{
         setFormData({...formData, [e.target.name]: e.target.value})
     }
 
+    const setcoverArt = (url) =>{
+        setFormData({...formData, coverArt: url})
+    }
+
+    const buttonLabel = isUploading
+        ? 'Uploading cover art...'
+        : submitting
+        ? 'submitting...'
+        : 'Save Changes'
+
     return(
         <>
             <form className="form" onSubmit={handleSubmit}>
-                {playlist.coverArt 
-                ?(
-                    <img className='coverArt'
-                    src={playlist.coverArt}
-                    alt={`${playlist.title} cover`}
-                    />
-                )
                 
-                :(<img className='coverArt'
-                    src={'https://res.cloudinary.com/dhdhyhahn/image/upload/v1755012671/5b3d5b19-045d-486b-822e-e8bc5fe8c16c.png'}
-                    alt={`${playlist.title} cover`}
-                />)
-                }
+                <ImageUploadField image="CoverArt" setImage ={setcoverArt} imageUrl={formData.coverArt} setIsUploading={setIsUploading} playlistImage={playlist.coverArt} showPlaceholder={true}/>
+                
                 <label htmlFor="title">Playlist Title</label>
                 <input type="text" name='title' placeholder='A Cool Playlist Title' value={formData.title} onChange={handleChange} />
                 {errors.title && <p className='error-message'>{errors.title}</p>}
-                <button className='saveChanges'type="submit">{submitting ? 'submitting...' : 'Save Changes'}</button>
+                <button className='saveChanges' disabled={isUploading || submitting}type="submit">{buttonLabel}</button>
             </form>
         </>
     )

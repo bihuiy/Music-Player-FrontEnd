@@ -5,18 +5,21 @@ import { signUp } from '../../services/users'
 import { useNavigate } from 'react-router'
 import { UserContext } from '../../contexts/UserContext'
 import { setToken, getUser } from '../../utils/auth'
+import ImageUploadField from '../ImageUploadField/ImageUploadField'
 
 export default function SignUpForm(){
     const {setUser} = useContext(UserContext)
 
 
-    const [formData, setformData] = useState({
+    const [formData, setFormData] = useState({
         email: '',
         username: '',
         password: '',
-        passwordConfirmation: ''
+        passwordConfirmation: '',
+        profileImage: ''
     })
     const [errors, setErrors] = useState({})
+    const [isUploading, setIsUploading] = useState(false)
 
     const navigate = useNavigate()
 
@@ -33,13 +36,21 @@ export default function SignUpForm(){
         }
     }
 
+    
     const handleChange = (e) => {
-        setformData({...formData, [e.target.name]: e.target.value})
+        setFormData({...formData, [e.target.name]: e.target.value})
     }
+    const setProfileImage = (url) =>{
+        setFormData({...formData, profileImage: url})
+    }
+    
 
     return(
         <form className="form" onSubmit={handleSubmit}>
             <h1> Create an Account</h1>
+
+            <ImageUploadField image="ProfileImage" setImage ={setProfileImage} imageUrl={formData.profileImage} setIsUploading={setIsUploading}/>
+
             <label htmlFor="email">Email</label>
             <input type="email" name='email' id='email' placeholder='user@example.co.uk' value={formData.email} onChange={handleChange}/>
             {errors.email && <p className='errorMessage'>{errors.email}</p>}
@@ -56,7 +67,7 @@ export default function SignUpForm(){
             <input type="password" name='passwordConfirmation' id='passwordConfirmation' placeholder='confirm password' value={formData.passwordConfirmation} onChange={handleChange}/>
             {errors.passwordConfirmation && <p className='errorMessage'>{errors.passwordConfirmation}</p>}
 
-            <button type="submit">Sign-Up</button>
+            <button type="submit" disabled={isUploading}>{isUploading ? 'uploading...' : 'Sign-up'}</button>
         </form>
     )
 }
