@@ -4,7 +4,7 @@ import { useParams, useNavigate } from "react-router";
 import { getPlaylist } from "../../../../services/playlists";
 import ErrorPage from "../../ErrorPage/ErrorPage";
 import LoadingPage from "../../LoadingPage/LoadingPage"
-import { UserContext } from "../../../../contexts/UserContext";
+import { UserContext } from "../../../../contexts/userContext";
 import EditPlaylistForm from "../../../Edit-playlist-form/Edit-playlist-form";
 
 const editPlaylist = () => {
