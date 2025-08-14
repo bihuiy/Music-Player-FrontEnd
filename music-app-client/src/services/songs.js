@@ -8,14 +8,18 @@ export const getAllSongs = () => {
 };
 
 export const likeSong = (songId) => {
-  return axios.put(`${BASE_URL}/${songId}/like`, {
-    headers: {
-      Authorization: `Bearer ${getToken()}`,
-    },
-  });
+  return axios.put(
+    `${BASE_URL}/${songId}/like`,
+    {},
+    {
+      headers: {
+        Authorization: `Bearer ${getToken()}`,
+      },
+    }
+  );
 };
 
-export const removeLikeFromASong = (songId) => {
+export const unlikeSong = (songId) => {
   return axios.delete(`${BASE_URL}/${songId}/like`, {
     headers: {
       Authorization: `Bearer ${getToken()}`,
