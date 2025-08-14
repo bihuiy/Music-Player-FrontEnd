@@ -1,7 +1,8 @@
 import "./ImageUploadField.css"
 import { uploadImage } from "../../services/cloudinary"
 
-export default function ImageUploadField({image, setImage, imageUrl, setIsUploading}){
+export default function ImageUploadField({image, setImage, imageUrl, setIsUploading, playlistImage, showPlaceholder = false}){
+    const placeholderImage = 'https://res.cloudinary.com/dhdhyhahn/image/upload/v1755012671/5b3d5b19-045d-486b-822e-e8bc5fe8c16c.png'
 
     const handleFileUpload = async (e) =>{
         setIsUploading(true)
@@ -15,10 +16,10 @@ export default function ImageUploadField({image, setImage, imageUrl, setIsUpload
             setIsUploading(false)
         }
     }
-
+        const displayImage = imageUrl || playlistImage || (showPlaceholder ? placeholderImage : null)
     return(
         <>
-        {imageUrl && <img className={`uploaded${(image)}`} src={imageUrl} />}
+        {displayImage && <img className={`uploaded${image}`} src={displayImage} />}
         <label htmlFor={image}>Upload {image}</label>
         <input type="file" name={image} id={image} onChange={handleFileUpload}/>
         </>

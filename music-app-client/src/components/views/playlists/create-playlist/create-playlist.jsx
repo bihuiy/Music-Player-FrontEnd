@@ -37,6 +37,12 @@ const CreatePlaylist = () =>{
         setFormData({...formData, coverArt: url})
     }
 
+    const buttonLabel = isUploading
+        ? 'Uploading cover art...'
+        : submitting
+        ? 'submitting...'
+        : 'Save Changes'
+
     return(
         <>
             
@@ -48,7 +54,7 @@ const CreatePlaylist = () =>{
                 <label htmlFor="title">Playlist Title</label>
                 <input type="text" name='title' placeholder='A Cool Playlist Title' value={formData.title} onChange={handleChange} />
                 {errors.title && <p className='error-message'>{errors.title}</p>}
-                <button className='createPlaylist' disabled={isUploading || submitting}type="submit">{(isUploading ? 'Uploading cover art...' : 'Create') || (submitting ? 'Submitting...' : 'Create')}</button>
+                <button className='createPlaylist' disabled={isUploading || submitting}type="submit">{buttonLabel}</button>
             </form>
         </>
     )
