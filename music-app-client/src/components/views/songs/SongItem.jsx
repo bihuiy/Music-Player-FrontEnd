@@ -1,6 +1,6 @@
 import PlayPauseButton from "../../SongPlayPauseButton/PlayPauseButton";
 import LikeButton from "../../LikeButton/LikeButton";
-
+import './SongItem.css'
 export default function SongItem({
   song,
   songs,
