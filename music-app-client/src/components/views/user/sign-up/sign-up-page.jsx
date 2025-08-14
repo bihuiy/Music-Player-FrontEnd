@@ -1,7 +1,7 @@
-import './sign-up-page.css'
-import SignUpForm from '../../../sign-up-form/sign-up-form'
+import './Sign-up-page.css'
+import SignUpForm from "../../../Sign-up-form/Sign-up-form.jsx"
 import { useContext } from 'react'
-import { UserContext } from '../../../../contexts/userContext.jsx'
+import { UserContext } from '../../../../contexts/UserContext.jsx'
 import { Navigate } from 'react-router'
 
 export default function SignUpPage(){

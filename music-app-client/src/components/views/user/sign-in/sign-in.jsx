@@ -1,7 +1,7 @@
-import './sign-in.css'
-import SignInForm from '../../../sign-in-form/sign-in-form.jsx'
+import './Sign-in.css'
+import SignInForm from "../../../Sign-in-form/Sign-in-form.jsx"
 import { useContext } from 'react'
-import { UserContext } from '../../../../contexts/userContext.jsx'
+import { UserContext } from '../../../../contexts/UserContext.jsx'
 import { Navigate } from 'react-router'
 
 export default function SignInPage(){

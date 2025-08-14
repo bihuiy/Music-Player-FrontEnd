@@ -15,10 +15,22 @@ export const likeSong = (songId) => {
   });
 };
 
-export const RemoveLikeFromASong = (songId) => {
+export const removeLikeFromASong = (songId) => {
   return axios.delete(`${BASE_URL}/${songId}/like`, {
     headers: {
       Authorization: `Bearer ${getToken()}`,
     },
   });
+};
+
+export const addSongToPlaylist = (songId, playlistId) => {
+  return axios.post(
+    `${BASE_URL}/${songId}/add-to-playlist`,
+    { playlistId },
+    {
+      headers: {
+        Authorization: `Bearer ${getToken()}`,
+      },
+    }
+  );
 };

@@ -1,19 +1,60 @@
-import { useEffect, useState } from "react";
-import { getAllSongs } from "../../../services/songs";
-import "./songs.css";
+import { useEffect, useState, useContext } from "react";
+import { UserContext } from "../../../contexts/UserContext";
+import "./Songs.css";
+
 
 // Page components
 import ErrorPage from "../error-page/error-page";
 import { useParams } from "react-router";
 import LoadingPage from "../loading-page/loading-page";
+import { usePlayer } from "../../../contexts/playerContext";
+// * Services / utils
+import { getAllSongs, addSongToPlaylist } from "../../../services/songs";
+import { createdPlaylistsShow } from "../../../services/profiles";
+import { searchSongs } from "../../../utils/songSearch";
+// * Page components
+import PlayPauseButton from "../../SongPlayPauseButton/PlayPauseButton";
+import AddToPlaylistModal from "./AddToPlaylistModal";
+
+
+
+function PlayPauseButton({song, songs, index, url}){
+  const { setPlaylist, setCurrentIndex } = usePlayer();
+  const { load, togglePlayPause, isPlaying, src } = useAudioPlayerContext()
+
+    function handlePlayButton() {
+    
+      if (src === url){
+        return togglePlayPause()
+      }
+      setPlaylist(songs)
+      setCurrentIndex(index)
+    }
+
+    return (
+        <button onClick={handlePlayButton}>
+            {isPlaying && (src === url) ? "Pause" : "Play"}
+        </button>
+    )
+  }
+
+
+
+
 
 export default function Songs() {
-  const { userId } = useParams();
-  // * State
+  const { user } = useContext(UserContext);
+
+  // State
   const [songs, setSongs] = useState([]);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [modalShow, setModalShow] = useState(false);
+  const [selectedSong, setSelectedSong] = useState(null);
+  const [playlists, setPlaylists] = useState([]);
+  const [query, setQuery] = useState("");
 
+  // Fetch all songs
   useEffect(() => {
     const getAllSongsData = async () => {
       setIsLoading(true);
@@ -29,6 +70,27 @@ export default function Songs() {
     getAllSongsData();
   }, []);
 
+  const filteredSongs = searchSongs(songs, query);
+
+  // Fetch current login user's playlists
+  useEffect(() => {
+    const getCreatedPlaylistsData = async () => {
+      try {
+        const { data } = await createdPlaylistsShow(user._id);
+        setPlaylists(data.createdPlaylists);
+      } catch (error) {
+        setError(error);
+      }
+    };
+    getCreatedPlaylistsData();
+  }, []);
+
+  // Open modal and set the song to add
+  function handleOpenModal(song) {
+    setSelectedSong(song);
+    setModalShow(true);
+  }
+
   if (error) return <ErrorPage error={error} />;
   if (isLoading) return <LoadingPage />;
 
@@ -36,16 +98,53 @@ export default function Songs() {
     <>
       <h1>Explore songs</h1>
       <div>
+
         {songs.length > 0 ? (
-          songs.map((song) => {
+          songs.map((song, index, songs) => {
             return (
               <li key={song._id}>
                 <p>{song.title}</p>
+                <PlayPauseButton song={song} songs={songs} index={index} url={song.url}/>
               </li>
+
+        <input
+          type="text"
+          placeholder="Search by title or artist..."
+          value={query}
+          onChange={(event) => setQuery(event.target.value)}
+        />
+      </div>
+      <div>
+        {filteredSongs.length > 0 ? (
+          filteredSongs.map((song) => {
+            return (
+              <div key={song._id}>
+                <p>
+                  {song.title} by {song.artist}
+                </p>
+                <button onClick={() => handleOpenModal(song)}>
+                  Add to Playlist
+                </button>
+                <PlayPauseButton song={song} url={song.url} />
+              </div>
+
             );
           })
         ) : (
           <p>There are currently no songs to display</p>
+        )}
+      </div>
+
+      {/* Add to Playlist Modal */}
+      <div>
+        {selectedSong && (
+          <AddToPlaylistModal
+            show={modalShow}
+            onHide={() => setModalShow(false)}
+            song={selectedSong}
+            playlists={playlists}
+            onAdd={addSongToPlaylist}
+          />
         )}
       </div>
     </>
