@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { profileShow } from "../../../services/profiles";
 import "./Profile.css";
+import "../playlists/explore-playlists/explore-playlists.css";
 import { UserContext } from "../../../contexts/UserContext";
 import { useContext } from "react";
+
 
 // Page components
 import ErrorPage from "../ErrorPage/ErrorPage";
@@ -12,6 +14,7 @@ import SongItem from "../Songs/SongItem";
 import AddToPlaylistModal from "../Songs/AddToPlaylistModal";
 import { addSongToPlaylist } from "../../../services/songs";
 import { createdPlaylistsShow } from "../../../services/profiles";
+import PlaylistTile from "../../Playlist-tile/Playlist-tile";
 
 export default function Profile() {
   const { userId } = useParams();
@@ -78,34 +81,41 @@ export default function Profile() {
       <div>
         <Link
           to={`/user/${profileUser._id}/created-playlists`}
+          
         >{`${profileUser.username}'s playlists`}</Link>
-        {createdPlaylists.length > 0 ? (
-          createdPlaylists.map((createdPlaylist) => {
+        <div className="playlists-grid">
+          {createdPlaylists.length > 0 ? (
+          createdPlaylists.map((playlist) => {
             return (
-              <li key={createdPlaylist._id}>
-                <p>{createdPlaylist.title}</p>
-              </li>
+              <div key={playlist._id} className="playlistTile">
+                <PlaylistTile playlist={playlist} />
+              </div>
             );
           })
         ) : (
           <p>There are currently no playlists to display</p>
         )}
+        </div>
+        
       </div>
       <div>
         <Link
           to={`/user/${profileUser._id}/bookmarked-playlists`}
         >{`${profileUser.username}'s bookmarked playlists`}</Link>
-        {bookmarkedPlaylists.length > 0 ? (
-          bookmarkedPlaylists.map((bookmarkedPlaylist) => {
+        <div className="playlists-grid">
+          {bookmarkedPlaylists.length > 0 ? (
+          bookmarkedPlaylists.map((playlist) => {
             return (
-              <li key={bookmarkedPlaylist._id}>
-                <p>{bookmarkedPlaylist.title}</p>
-              </li>
+              <div key={playlist._id} className="playlistTile">
+                <PlaylistTile playlist={playlist} />
+              </div>
             );
           })
         ) : (
           <p>There are currently no playlists to display</p>
         )}
+        </div>
+        
       </div>
       <div>
         <Link
