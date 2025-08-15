@@ -1,0 +1,25 @@
+
+.playPauseButtonNotPlaying{
+    background-color: #167f3c;
+    border-radius: 100%;
+    padding: 0;
+    height: 40px;
+    width: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.playPauseButtonPlaying{
+    border-radius: 100%;
+    padding: 0;
+    height: 40px;
+    width: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+button:hover{
+    filter: brightness(0.75)
+}

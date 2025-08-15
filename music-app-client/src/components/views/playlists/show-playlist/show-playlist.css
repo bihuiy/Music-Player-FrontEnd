@@ -26,3 +26,36 @@ div.playlistTile:hover {
   font-size: 40px;
   color: black;
 }
+
+.deleteButton{
+  background-color: maroon;
+}
+
+.deleteButton:hover{
+  filter: brightness(0.75);
+}
+
+.delete-song-button{
+  background-color: maroon;
+}
+
+.delete-song-button:hover{
+  filter: brightness(0.75);
+}
+
+.editButton{
+  background-color: rgb(154, 83, 2);
+}
+.editButton:hover{
+  filter:brightness(0.75)
+}
+
+.songSection{
+  display: flex;
+  flex-direction: column;
+}
+
+.song-row{
+  display: flex;
+  gap: 10px
+}

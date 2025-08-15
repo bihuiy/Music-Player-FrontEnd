@@ -10,6 +10,8 @@ import ErrorPage from "../../ErrorPage/ErrorPage";
 import SongItem from "../../Songs/SongItem";
 import AddToPlaylistModal from "../../Songs/AddToPlaylistModal";
 import { CiCirclePlus } from "react-icons/ci";
+import { MdDeleteOutline } from "react-icons/md";
+
 
 // Services / utils
 import { addSongToPlaylist } from "../../../../services/songs";
@@ -127,7 +129,7 @@ const ShowPlaylist = () => {
         </div>
       </div>
 
-      <div>
+      <div className="songSection">
         {playlist.songs.length > 0 ? (
           playlist.songs.map((song, index) => {
             return (
@@ -143,7 +145,7 @@ const ShowPlaylist = () => {
                   className="delete-song-button"
                   onClick={() => handleDeleteSong(song._id)}
                 >
-                  Delete
+                  <MdDeleteOutline />
                 </button>
               </div>
             );
