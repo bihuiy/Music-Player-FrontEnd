@@ -4,16 +4,15 @@ import { useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
 import axios from "axios";
 import { useNavigate } from "react-router";
+import { removeToken } from "../../utils/auth";
 
 const Navbar = () => {
   const { user, setUser } = useContext(UserContext);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleSignOut = () => {
-    navigate("/")
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    delete axios.defaults.headers.common.Authorization;
+    navigate("/");
+    removeToken();
     setUser(null);
   };
 
