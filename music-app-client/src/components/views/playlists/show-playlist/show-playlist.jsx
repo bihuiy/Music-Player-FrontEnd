@@ -2,7 +2,7 @@ import "./Show-playlist.css";
 import { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router";
 import { deletePlaylist, getPlaylist } from "../../../../services/playlists";
-import { UserContext } from "../../../../contexts/userContext";
+import { UserContext } from "../../../../contexts/UserContext";
 
 // Page components
 import LoadingPage from "../../LoadingPage/LoadingPage";
@@ -126,7 +126,7 @@ const ShowPlaylist = () => {
         {playlist.songs.length > 0 ? (
           playlist.songs.map((song, index) => {
             return (
-              <div key={song._id}>
+              <div key={song._id} className="song-row">
                 <SongItem
                   song={song}
                   songs={playlist.songs}
@@ -134,7 +134,7 @@ const ShowPlaylist = () => {
                   user={user}
                   handleOpenModal={handleOpenModal}
                 />
-                <button onClick={() => handleDeleteSong(song._id)}>
+                <button className="delete-song-button" onClick={() => handleDeleteSong(song._id)}>
                   Delete
                 </button>
               </div>

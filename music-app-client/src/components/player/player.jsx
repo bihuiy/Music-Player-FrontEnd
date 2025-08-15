@@ -3,7 +3,7 @@ import { useAudioPlayerContext } from "react-use-audio-player";
 import { FaPlay, FaPause } from "react-icons/fa";
 import { GoMute, GoUnmute } from "react-icons/go";
 import { useEffect, useState } from "react";
-import { usePlayer } from "../../contexts/playerContext";
+import { usePlayer } from "../../contexts/PlayerContext";
 import { IoMdSkipBackward, IoMdSkipForward } from "react-icons/io";
 
 const Player = () => {

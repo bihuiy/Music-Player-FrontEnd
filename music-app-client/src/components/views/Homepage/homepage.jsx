@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router";
-import { UserContext } from "../../../contexts/userContext";
+import { UserContext } from "../../../contexts/UserContext";
 import "./Homepage.css";
 import "../Playlists/Explore-playlists/Explore-playlists.css";
 import { homePage } from "../../../services/homepage";
@@ -8,6 +8,7 @@ import PlaylistTile from "../../Playlist-tile/Playlist-tile";
 
 // Page components
 import ErrorPage from "../ErrorPage/ErrorPage";
+import LoadingPage from "../LoadingPage/LoadingPage";
 import SongItem from "../Songs/SongItem";
 import AddToPlaylistModal from "../Songs/AddToPlaylistModal";
 import { addSongToPlaylist } from "../../../services/songs";
@@ -24,28 +25,30 @@ export default function Homepage() {
   const [modalShow, setModalShow] = useState(false);
   const [selectedSong, setSelectedSong] = useState(null);
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const getHomepageData = async () => {
+      setIsLoading(true);
       try {
         const { data } = await homePage();
         setTopPlaylists(data.topPlaylists);
         setTopSongs(data.topSongs);
       } catch (error) {
         setError(error);
+      } finally {
+        setIsLoading(false);
       }
     };
     getHomepageData();
   }, []);
 
-  
-
   // Fetch current login user's playlists
   useEffect(() => {
     const getCreatedPlaylistsData = async () => {
       if (!user?._id) {
-        setPlaylists([])
-        return
+        setPlaylists([]);
+        return;
       }
       try {
         const { data } = await createdPlaylistsShow(user._id);
@@ -64,6 +67,7 @@ export default function Homepage() {
   }
 
   if (error) return <ErrorPage error={error} />;
+  if (isLoading) return <LoadingPage />;
 
   return (
     <>

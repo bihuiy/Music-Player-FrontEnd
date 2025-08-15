@@ -1,6 +1,7 @@
 import { useEffect, useState, useContext } from "react";
-import { UserContext } from "../../../contexts/userContext";
+import { UserContext } from "../../../contexts/UserContext";
 import "./Songs.css";
+
 import { useNavigate } from "react-router";
 
 // * Page components
@@ -25,7 +26,7 @@ export default function Songs() {
   const [query, setQuery] = useState("");
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   // Fetch all songs
   useEffect(() => {
@@ -35,7 +36,7 @@ export default function Songs() {
         const { data } = await getAllSongs();
         setSongs(data);
       } catch (error) {
-        console.log(error)
+        console.log(error);
         setError(error);
       } finally {
         setIsLoading(false);
@@ -48,7 +49,7 @@ export default function Songs() {
 
   // Fetch current login user's playlists
   useEffect(() => {
-    if (!user?._id) return
+    if (!user?._id) return;
     const getCreatedPlaylistsData = async () => {
       try {
         const { data } = await createdPlaylistsShow(user._id);
@@ -62,7 +63,7 @@ export default function Songs() {
 
   // Open modal and set the song to add
   function handleOpenModal(song) {
-    if (!user?._id) return navigate ("/user/sign-up")
+    if (!user?._id) return navigate("/user/sign-up");
     setSelectedSong(song);
     setModalShow(true);
   }

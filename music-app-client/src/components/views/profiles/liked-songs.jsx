@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react";
-import { UserContext } from "../../../contexts/userContext";
+import { UserContext } from "../../../contexts/UserContext";
 import { likedSongsShow } from "../../../services/profiles";
 import "./Profile.css";
 
@@ -33,6 +33,8 @@ export default function LikedSongs() {
         setProfileUser(data.user);
         setLikedSongs(data.likedSongs);
       } catch (error) {
+        console.log(error);
+        
         setError(error);
       } finally {
         setIsLoading(false);
@@ -46,8 +48,10 @@ export default function LikedSongs() {
     const getCreatedPlaylistsData = async () => {
       try {
         const { data } = await createdPlaylistsShow(user._id);
-        setPlaylists(data.playlists);
+        setPlaylists(data.createdPlaylists);
       } catch (error) {
+        console.log(error);
+        
         setError(error);
       }
     };
@@ -65,11 +69,11 @@ export default function LikedSongs() {
   if (!profileUser) return <LoadingPage />;
 
   return (
-    <>
-      <h1>{profileUser.username}'s liked songs</h1>
-      {/* user's profile photo */}
-      <p>{profileUser.username}</p>
-      <hr />
+    <div className="profile-container">
+      <div className="profile-header">
+        <h1>{profileUser.username}'s liked songs</h1>
+        <hr />
+      </div>
       <div>
         {likedSongs.length > 0 ? (
           likedSongs.map((likedSong, index) => {
@@ -97,6 +101,6 @@ export default function LikedSongs() {
           />
         )}
       </div>
-    </>
+    </div>
   );
 }
