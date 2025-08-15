@@ -1,6 +1,6 @@
 import "./Show-playlist.css";
 import { useEffect, useState, useContext } from "react";
-import { useParams, useNavigate } from "react-router";
+import { Link, useParams, useNavigate } from "react-router";
 import { deletePlaylist, getPlaylist } from "../../../../services/playlists";
 import { UserContext } from "../../../../contexts/UserContext";
 
@@ -9,6 +9,7 @@ import LoadingPage from "../../LoadingPage/LoadingPage";
 import ErrorPage from "../../ErrorPage/ErrorPage";
 import SongItem from "../../Songs/SongItem";
 import AddToPlaylistModal from "../../Songs/AddToPlaylistModal";
+import { CiCirclePlus } from "react-icons/ci";
 
 // Services / utils
 import { addSongToPlaylist } from "../../../../services/songs";
@@ -43,9 +44,9 @@ const ShowPlaylist = () => {
 
   // Fetch current login user's playlists
   useEffect(() => {
-    if (!user?._id){
-      setPlaylists([])
-      return
+    if (!user?._id) {
+      setPlaylists([]);
+      return;
     }
     const getCreatedPlaylistsData = async () => {
       try {
@@ -138,14 +139,24 @@ const ShowPlaylist = () => {
                   user={user}
                   handleOpenModal={handleOpenModal}
                 />
-                <button className="delete-song-button" onClick={() => handleDeleteSong(song._id)}>
+                <button
+                  className="delete-song-button"
+                  onClick={() => handleDeleteSong(song._id)}
+                >
                   Delete
                 </button>
               </div>
             );
           })
         ) : (
-          <p>There are currently no songs to display</p>
+          <div>
+            <p>There are currently no songs to display</p>
+            {user?._id && user._id === playlist.owner._id && (
+              <Link to={`/songs`}>
+                <CiCirclePlus className="add-song-icon" />
+              </Link>
+            )}
+          </div>
         )}
         {selectedSong && (
           <AddToPlaylistModal
