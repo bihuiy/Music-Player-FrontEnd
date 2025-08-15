@@ -8,11 +8,11 @@ import { removeToken } from "../../utils/auth";
 
 const Navbar = () => {
   const { user, setUser } = useContext(UserContext);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleSignOut = () => {
-    navigate("/")
-    removeToken()
+    navigate("/");
+    removeToken();
     setUser(null);
   };
 
