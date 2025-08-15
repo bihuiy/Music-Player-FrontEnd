@@ -72,6 +72,11 @@ export default function Profile() {
   return (
     <div className="profile-container">
       <div className="profile-header">
+        <img
+          src={profileUser.profileImage}
+          alt={`${profileUser.username}'s avatar`}
+          className="profile-avatar"
+        />
         <h1>{`${profileUser.username}`}'s profile</h1>
         <hr />
       </div>
