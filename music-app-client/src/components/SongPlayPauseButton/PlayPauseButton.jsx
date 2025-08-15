@@ -3,6 +3,7 @@ import { usePlayer } from "../../contexts/PlayerContext";
 import { useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
 import { useNavigate } from "react-router";
+import { FaPlay, FaPause } from "react-icons/fa";
 
 export default function PlayPauseButton({ song, songs, index, url }) {
   const { setPlaylist, setCurrentIndex } = usePlayer();
@@ -21,7 +22,7 @@ export default function PlayPauseButton({ song, songs, index, url }) {
 
   return (
     <button onClick={handlePlayButton}>
-      {isPlaying && src === url ? "Pause" : "Play"}
+      {isPlaying && src === url ? <FaPause/> : <FaPlay/>}
     </button>
   );
 }
