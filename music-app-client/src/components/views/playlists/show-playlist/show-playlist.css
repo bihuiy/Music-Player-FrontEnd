@@ -1,23 +1,28 @@
-.playlistHead{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 50px;
+.playlistHead {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
 }
 
-div.playlistTile{
-    background-color: #323232;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    width: calc(25% - (45px / 4));
-    cursor: pointer;
-    box-sizing: border-box;
-    padding: 5px;
-    border-radius: 3cap;
+div.playlistTile {
+  background-color: #323232;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: calc(25% - (45px / 4));
+  cursor: pointer;
+  box-sizing: border-box;
+  padding: 5px;
+  border-radius: 3cap;
 }
 
-div.playlistTile:hover{
-    background-color: #474747;
+div.playlistTile:hover {
+  background-color: #474747;
+}
+
+.add-song-icon {
+  font-size: 40px;
+  color: black;
 }
