@@ -31,6 +31,7 @@
 .modal-footer .btn {
   padding: 4px 12px;
   font-size: 0.9rem;
+  min-width: 80px;
 }
 
 .modal-footer {
