@@ -40,7 +40,7 @@ const Player = () => {
 
     load(url, {
       autoplay: true,
-      initialVolume: volume,
+      initialVolume: 0.5,
       onend: () => skipTrack(1),
     });
   }, [playlist, currentIndex, load, setCurrentIndex]);
