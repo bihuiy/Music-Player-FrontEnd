@@ -1,3 +1,9 @@
+main{
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
 .playlistHead {
   display: flex;
   flex-direction: row;
@@ -22,7 +28,58 @@ div.playlistTile:hover {
   background-color: #474747;
 }
 
+.playlistOptions{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px
+}
+
+.songSection{
+  background-color: rgba(0, 0, 0, 0.107);
+  border-radius: 12px;
+  padding: 10px
+}
+
+.coverArtWrapper{
+  max-width: 300px;
+}
+
 .add-song-icon {
   font-size: 40px;
   color: black;
+}
+
+.deleteButton{
+  background-color: maroon;
+}
+
+.deleteButton:hover{
+  filter: brightness(0.75);
+}
+
+.delete-song-button{
+  background-color: maroon;
+}
+
+.delete-song-button:hover{
+  filter: brightness(0.75);
+}
+
+.editButton{
+  background-color: rgb(154, 83, 2);
+}
+.editButton:hover{
+  filter:brightness(0.75)
+}
+
+.songSection{
+  display: flex;
+  flex-direction: column;
+}
+
+
+.song-row{
+  display: flex;
+  gap: 10px
 }
