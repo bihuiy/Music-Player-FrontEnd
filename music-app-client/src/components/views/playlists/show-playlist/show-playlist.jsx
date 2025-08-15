@@ -43,6 +43,10 @@ const ShowPlaylist = () => {
 
   // Fetch current login user's playlists
   useEffect(() => {
+    if (!user?._id){
+      setPlaylists([])
+      return
+    }
     const getCreatedPlaylistsData = async () => {
       try {
         const { data } = await createdPlaylistsShow(user._id);
@@ -83,7 +87,7 @@ const ShowPlaylist = () => {
   if (error) return <ErrorPage error={error} />;
   if (!playlist) return <p>Playlist not found :(</p>;
 
-  const isOwner = user._id === playlist.owner._id;
+  const isOwner = user?._id === playlist.owner?._id;
 
   return (
     <main>
