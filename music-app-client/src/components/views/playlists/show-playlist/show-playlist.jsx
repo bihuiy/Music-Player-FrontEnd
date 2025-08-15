@@ -61,6 +61,7 @@ const ShowPlaylist = () => {
 
   // Open modal and set the song to add
   function handleOpenModal(song) {
+    if (!user?._id) return navigate("/user/sign-up");
     setSelectedSong(song);
     setModalShow(true);
   }
@@ -139,12 +140,14 @@ const ShowPlaylist = () => {
                   user={user}
                   handleOpenModal={handleOpenModal}
                 />
-                <button
-                  className="delete-song-button"
-                  onClick={() => handleDeleteSong(song._id)}
-                >
-                  Delete
-                </button>
+                {user?._id && user._id === playlist.owner._id && (
+                  <button
+                    className="delete-song-button"
+                    onClick={() => handleDeleteSong(song._id)}
+                  >
+                    Delete
+                  </button>
+                )}
               </div>
             );
           })

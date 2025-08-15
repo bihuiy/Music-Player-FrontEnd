@@ -62,6 +62,7 @@ export default function Homepage() {
 
   // Open modal and set the song to add
   function handleOpenModal(song) {
+    if (!user?._id) return navigate("/user/sign-up");
     setSelectedSong(song);
     setModalShow(true);
   }
