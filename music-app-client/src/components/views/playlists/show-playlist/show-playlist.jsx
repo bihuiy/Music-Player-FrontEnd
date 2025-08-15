@@ -11,6 +11,7 @@ import SongItem from "../../Songs/SongItem";
 import AddToPlaylistModal from "../../Songs/AddToPlaylistModal";
 import { CiCirclePlus } from "react-icons/ci";
 import { MdDeleteOutline } from "react-icons/md";
+import BookmarkButton from "../../../BookmarkButton/BookmarkButton";
 
 
 // Services / utils
@@ -93,9 +94,11 @@ const ShowPlaylist = () => {
   const isOwner = user?._id === playlist.owner?._id;
 
   return (
-    <main>
+    <main className="showPlaylistPage">
       <div className="playlistHead">
-        {playlist.coverArt ? (
+        <div className="coverArtWrapper">
+          {isOwner && <BookmarkButton playlist={playlist} />}
+          {playlist.coverArt ? (
           <img
             className="coverArt"
             src={playlist.coverArt}
@@ -110,11 +113,13 @@ const ShowPlaylist = () => {
             alt={`${playlist.title} cover`}
           />
         )}
+        </div>
+        
         <div className="playlistInfo">
           <h1>{playlist.title}</h1>
           <h2>Created by {playlist.owner.username}</h2>
           {isOwner && (
-            <>
+            <div className="playlistOptions">
               <button
                 className="editButton"
                 onClick={() => navigate(`/playlists/${playlist._id}/edit`)}
@@ -124,7 +129,8 @@ const ShowPlaylist = () => {
               <button className="deleteButton" onClick={handleDelete}>
                 Delete Playlist
               </button>
-            </>
+            </div>
+            
           )}
         </div>
       </div>
