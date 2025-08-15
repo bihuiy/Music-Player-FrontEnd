@@ -10,6 +10,9 @@ import ErrorPage from "../../ErrorPage/ErrorPage";
 import SongItem from "../../Songs/SongItem";
 import AddToPlaylistModal from "../../Songs/AddToPlaylistModal";
 import { CiCirclePlus } from "react-icons/ci";
+import { MdDeleteOutline } from "react-icons/md";
+import BookmarkButton from "../../../BookmarkButton/BookmarkButton";
+
 
 // Services / utils
 import { addSongToPlaylist } from "../../../../services/songs";
@@ -92,9 +95,11 @@ const ShowPlaylist = () => {
   const isOwner = user?._id === playlist.owner?._id;
 
   return (
-    <main>
+    <main className="showPlaylistPage">
       <div className="playlistHead">
-        {playlist.coverArt ? (
+        <div className="coverArtWrapper">
+          {isOwner && <BookmarkButton playlist={playlist} />}
+          {playlist.coverArt ? (
           <img
             className="coverArt"
             src={playlist.coverArt}
@@ -109,11 +114,13 @@ const ShowPlaylist = () => {
             alt={`${playlist.title} cover`}
           />
         )}
+        </div>
+        
         <div className="playlistInfo">
           <h1>{playlist.title}</h1>
           <h2>Created by {playlist.owner.username}</h2>
           {isOwner && (
-            <>
+            <div className="playlistOptions">
               <button
                 className="editButton"
                 onClick={() => navigate(`/playlists/${playlist._id}/edit`)}
@@ -123,12 +130,13 @@ const ShowPlaylist = () => {
               <button className="deleteButton" onClick={handleDelete}>
                 Delete Playlist
               </button>
-            </>
+            </div>
+            
           )}
         </div>
       </div>
 
-      <div>
+      <div className="songSection">
         {playlist.songs.length > 0 ? (
           playlist.songs.map((song, index) => {
             return (
@@ -140,14 +148,16 @@ const ShowPlaylist = () => {
                   user={user}
                   handleOpenModal={handleOpenModal}
                 />
+
                 {user?._id && user._id === playlist.owner._id && (
                   <button
                     className="delete-song-button"
                     onClick={() => handleDeleteSong(song._id)}
                   >
-                    Delete
+                   <MdDeleteOutline />
                   </button>
                 )}
+
               </div>
             );
           })
