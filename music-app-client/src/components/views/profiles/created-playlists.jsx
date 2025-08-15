@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { createdPlaylistsShow } from "../../../services/profiles";
 import "./Profile.css";
+import PlaylistTile from "../../Playlist-tile/Playlist-tile";
 
 // Page components
 import ErrorPage from "../ErrorPage/ErrorPage";
@@ -40,17 +41,20 @@ export default function CreatedPlaylists() {
       <h1>{profileUser.username}'s playlists</h1>
       <hr />
       <div>
-        {createdPlaylists.length > 0 ? (
-          createdPlaylists.map((createdPlaylist) => {
-            return (
-              <div key={createdPlaylist._id}>
-                <p>{createdPlaylist.title}</p>
-              </div>
-            );
-          })
-        ) : (
-          <p>There are currently no playlists to display</p>
+        <div className="playlists-grid">
+          {createdPlaylists.length > 0 ? (
+            createdPlaylists.map((playlist) => {
+              return (
+                <div key={playlist._id} className="playlistTile">
+                  <PlaylistTile playlist={playlist} />
+                </div>
+              );
+            })
+          ) : (
+            <p>There are currently no playlists to display</p>
         )}
+        </div>
+        
       </div>
     </>
   );

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import "./Profile.css";
+import PlaylistTile from "../../Playlist-tile/Playlist-tile";
 
 // * Services
 import { bookmarkedPlaylistsShow } from "../../../services/profiles";
@@ -42,17 +43,20 @@ export default function BookmarkedPlaylists() {
       <h1>{profileUser.username}'s bookmarked playlists</h1>
       <hr />
       <div>
-        {bookmarkedPlaylists.length > 0 ? (
-          bookmarkedPlaylists.map((bookmarkedPlaylist) => {
+        <div className="playlists-grid">
+          {bookmarkedPlaylists.length > 0 ? (
+          bookmarkedPlaylists.map((playlist) => {
             return (
-              <div key={bookmarkedPlaylist._id}>
-                <p>{bookmarkedPlaylist.title}</p>
+              <div key={playlist._id} className="playlistTile">
+                <PlaylistTile playlist={playlist} />
               </div>
             );
           })
         ) : (
           <p>There are currently no playlists to display</p>
         )}
+        </div>
+        
       </div>
     </>
   );
