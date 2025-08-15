@@ -37,9 +37,7 @@ export default function CreatedPlaylists() {
 
   return (
     <>
-      <h1>{profileUser.username}'s created playlists</h1>
-      {/* user's profile photo */}
-      <p>{profileUser.username}</p>
+      <h1>{profileUser.username}'s playlists</h1>
       <hr />
       <div>
         {createdPlaylists.length > 0 ? (

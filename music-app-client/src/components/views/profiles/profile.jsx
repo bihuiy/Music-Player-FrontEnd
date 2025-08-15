@@ -2,9 +2,8 @@ import { useEffect, useState } from "react";
 import { profileShow } from "../../../services/profiles";
 import "./Profile.css";
 import "../playlists/explore-playlists/explore-playlists.css";
-import { UserContext } from "../../../contexts/userContext";
+import { UserContext } from "../../../contexts/UserContext";
 import { useContext } from "react";
-
 
 // Page components
 import ErrorPage from "../ErrorPage/ErrorPage";
@@ -58,7 +57,7 @@ export default function Profile() {
       }
     };
     getCreatedPlaylistsData();
-  }, []);
+  }, [user]);
 
   // Open modal and set the song to add
   function handleOpenModal(song) {
@@ -71,54 +70,59 @@ export default function Profile() {
   if (!profileUser) return <LoadingPage />;
 
   return (
-    <>
-      <h1>{`${profileUser.username}`}'s profile</h1>
-      {/* user's profile photo */}
-      <p>{profileUser.username}</p>
-      <hr />
-      <div>
-        <Link
-          to={`/user/${profileUser._id}/created-playlists`}
-          
-        >{`${profileUser.username}'s playlists`}</Link>
+    <div className="profile-container">
+      <div className="profile-header">
+        <h1>{`${profileUser.username}`}'s profile</h1>
+        <hr />
+      </div>
+      <div className="section">
+        <div className="section-title">
+          <Link
+            to={`/user/${profileUser._id}/created-playlists`}
+          >{`${profileUser.username}'s playlists`}</Link>
+        </div>
         <div className="playlists-grid">
           {createdPlaylists.length > 0 ? (
-          createdPlaylists.map((playlist) => {
-            return (
-              <div key={playlist._id} className="playlistTile">
-                <PlaylistTile playlist={playlist} />
-              </div>
-            );
-          })
-        ) : (
-          <p>There are currently no playlists to display</p>
-        )}
+            createdPlaylists.map((playlist) => {
+              return (
+                <div key={playlist._id} className="playlistTile">
+                  <PlaylistTile playlist={playlist} />
+                </div>
+              );
+            })
+          ) : (
+            <p>There are currently no playlists to display</p>
+          )}
         </div>
-        
       </div>
-      <div>
-        <Link
-          to={`/user/${profileUser._id}/bookmarked-playlists`}
-        >{`${profileUser.username}'s bookmarked playlists`}</Link>
+      <div className="section">
+        <div className="section-title">
+          <Link
+            to={`/user/${profileUser._id}/bookmarked-playlists`}
+          >{`${profileUser.username}'s bookmarked playlists`}</Link>
+        </div>
         <div className="playlists-grid">
           {bookmarkedPlaylists.length > 0 ? (
-          bookmarkedPlaylists.map((playlist) => {
-            return (
-              <div key={playlist._id} className="playlistTile">
-                <PlaylistTile playlist={playlist} />
-              </div>
-            );
-          })
-        ) : (
-          <p>There are currently no playlists to display</p>
-        )}
+            bookmarkedPlaylists.map((playlist) => {
+              return (
+                <div key={playlist._id} className="playlistTile">
+                  <PlaylistTile playlist={playlist} />
+                </div>
+              );
+            })
+          ) : (
+            <p>There are currently no playlists to display</p>
+          )}
         </div>
-        
       </div>
-      <div>
-        <Link
-          to={`/user/${profileUser._id}/liked-songs`}
-        >{`${profileUser.username}'s liked songs`}</Link>
+
+      <div className="section">
+        <div className="section-title">
+          <Link
+            to={`/user/${profileUser._id}/liked-songs`}
+          >{`${profileUser.username}'s liked songs`}</Link>
+        </div>
+
         {likedSongs.length > 0 ? (
           likedSongs.map((song, index) => {
             return (
@@ -135,16 +139,16 @@ export default function Profile() {
         ) : (
           <p>There are currently no songs to display</p>
         )}
-        {selectedSong && (
-          <AddToPlaylistModal
-            show={modalShow}
-            onHide={() => setModalShow(false)}
-            song={selectedSong}
-            playlists={playlists}
-            onAdd={addSongToPlaylist}
-          />
-        )}
       </div>
-    </>
+      {selectedSong && (
+        <AddToPlaylistModal
+          show={modalShow}
+          onHide={() => setModalShow(false)}
+          song={selectedSong}
+          playlists={createdPlaylists}
+          onAdd={addSongToPlaylist}
+        />
+      )}
+    </div>
   );
 }

@@ -1,31 +1,31 @@
-const tokenName = 'music-player-token'
+const tokenName = "music-player-token";
 
 export const setToken = (token) => {
-    localStorage.setItem(tokenName, token)
-}
+  localStorage.setItem(tokenName, token);
+};
 
 export const getToken = () => {
-    return localStorage.getItem(tokenName)
-}
+  return localStorage.getItem(tokenName);
+};
 
 export const removeToken = () => {
-    localStorage.removeItem(tokenName)
-}
+  localStorage.removeItem(tokenName);
+};
 
 export const getUser = () => {
-    const token = getToken()
-    
-    if (!token) return null
+  const token = getToken();
 
-    const payloadString = token.split('.')[1]
+  if (!token) return null;
 
-    const {user, exp} = JSON.parse(atob(payloadString))
+  const payloadString = token.split(".")[1];
 
-    const today = Date.now()/1000
-    if (today > exp){
-        removeToken()
-        return null
-    }
+  const { user, exp } = JSON.parse(atob(payloadString));
 
-    return user
-}
+  const today = Date.now() / 1000;
+  if (today > exp) {
+    removeToken();
+    return null;
+  }
+
+  return user;
+};

@@ -1,8 +1,15 @@
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import "./AddToPlaylistModal.css";
 
-export default function AddToPlaylistModal({ show, onHide, song, playlists, onAdd }) {
+export default function AddToPlaylistModal({
+  show,
+  onHide,
+  song,
+  playlists,
+  onAdd,
+}) {
   const [selectedPlaylist, setSelectedPlaylist] = useState("");
 
   function handleAdd() {
@@ -19,12 +26,9 @@ export default function AddToPlaylistModal({ show, onHide, song, playlists, onAd
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
+      dialogClassName="modal-dialog"
+      backdropClassName="modal-backdrop"
     >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Add "{song.title}" to your playlist
-        </Modal.Title>
-      </Modal.Header>
       <Modal.Body>
         <h4>Select a playlist</h4>
         <select
@@ -44,7 +48,11 @@ export default function AddToPlaylistModal({ show, onHide, song, playlists, onAd
         <Button variant="secondary" onClick={onHide}>
           Cancel
         </Button>
-        <Button variant="primary" onClick={handleAdd} disabled={!selectedPlaylist}>
+        <Button
+          variant="primary"
+          onClick={handleAdd}
+          disabled={!selectedPlaylist}
+        >
           Add
         </Button>
       </Modal.Footer>

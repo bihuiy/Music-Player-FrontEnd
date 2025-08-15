@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import { Routes, Route } from "react-router";
 
-import Homepage from "./components/views/Homepage/homepage.jsx";
+import Homepage from "./components/Views/Homepage/Homepage.jsx";
 import Navbar from "./components/Navbar/Navbar.jsx";
 import SignUpPage from "./components/Views/User/Sign-up/Sign-up-page.jsx";
 import SignInPage from "./components/Views/User/Sign-in/Sign-in.jsx";
@@ -15,7 +15,7 @@ import BookmarkedPlaylists from "./components/Views/Profiles/Bookmarked-playlist
 import Songs from "./components/Views/Songs/Songs.jsx";
 import ShowPlaylist from "./components/Views/Playlists/Show-playlist/Show-playlist.jsx";
 import EditPlaylist from "./components/Views/Playlists/Edit-playlist/Edit-playlist.jsx";
-import Player from "./components/player/player.jsx";
+import Player from "./components/Player/Player.jsx";
 
 function App() {
   return (

@@ -1,7 +1,7 @@
 import { Link } from "react-router";
 import "../Navbar/Navbar.css";
 import { useContext } from "react";
-import { UserContext } from "../../contexts/userContext";
+import { UserContext } from "../../contexts/UserContext";
 import axios from "axios";
 
 const Navbar = () => {
@@ -9,8 +9,8 @@ const Navbar = () => {
 
   const handleSignOut = () => {
     localStorage.removeItem("token");
-    localStorage.removeItem("user") 
-    delete axios.defaults.headers.common.Authorization
+    localStorage.removeItem("user");
+    delete axios.defaults.headers.common.Authorization;
     setUser(null);
   };
 

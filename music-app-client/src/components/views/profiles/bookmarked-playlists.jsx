@@ -40,8 +40,6 @@ export default function BookmarkedPlaylists() {
   return (
     <>
       <h1>{profileUser.username}'s bookmarked playlists</h1>
-      {/* user's profile photo */}
-      <p>{profileUser.username}</p>
       <hr />
       <div>
         {bookmarkedPlaylists.length > 0 ? (
