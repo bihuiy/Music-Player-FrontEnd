@@ -38,6 +38,11 @@ export default function CreatedPlaylists() {
 
   return (
     <>
+      <img
+        src={profileUser.profileImage}
+        alt={`${profileUser.username}'s avatar`}
+        className="profile-avatar"
+      />
       <h1>{profileUser.username}'s playlists</h1>
       <hr />
       <div>
@@ -52,9 +57,8 @@ export default function CreatedPlaylists() {
             })
           ) : (
             <p>There are currently no playlists to display</p>
-        )}
+          )}
         </div>
-        
       </div>
     </>
   );
