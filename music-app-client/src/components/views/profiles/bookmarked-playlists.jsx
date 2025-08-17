@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import "./Profile.css";
+import "../playlists/explore-playlists/Explore-playlists.css";
 import PlaylistTile from "../../Playlist-tile/Playlist-tile";
 
 // * Services
@@ -24,6 +25,8 @@ export default function BookmarkedPlaylists() {
       try {
         const { data } = await bookmarkedPlaylistsShow(userId);
         setProfileUser(data.user);
+        console.log(data.user);
+
         setBookmarkedPlaylists(data.bookmarkedPlaylists);
       } catch (error) {
         setError(error);
@@ -39,25 +42,32 @@ export default function BookmarkedPlaylists() {
   if (!profileUser) return <LoadingPage />;
 
   return (
-    <>
-      <h1>{profileUser.username}'s bookmarked playlists</h1>
-      <hr />
-      <div>
-        <div className="playlists-grid">
-          {bookmarkedPlaylists.length > 0 ? (
-          bookmarkedPlaylists.map((playlist) => {
-            return (
-              <div key={playlist._id} className="playlistTile">
-                <PlaylistTile playlist={playlist} />
-              </div>
-            );
-          })
-        ) : (
-          <p>There are currently no playlists to display</p>
-        )}
-        </div>
-        
+    <div className="profile-container">
+      <div className="profile-header">
+        <img
+          src={profileUser.profileImage}
+          alt={`${profileUser.username}'s avatar`}
+          className="profile-avatar"
+        />
+        <h1>{profileUser.username}'s bookmarked playlists</h1>
       </div>
-    </>
+      <div className="subsection">
+        <div className="section-title">
+          <div className="playlists-grid">
+            {bookmarkedPlaylists.length > 0 ? (
+              bookmarkedPlaylists.map((playlist) => {
+                return (
+                  <div key={playlist._id} className="playlistTile">
+                    <PlaylistTile playlist={playlist} />
+                  </div>
+                );
+              })
+            ) : (
+              <p>There are currently no playlists to display</p>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

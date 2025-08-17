@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { profileShow } from "../../../services/profiles";
 import "./Profile.css";
-import "../playlists/explore-playlists/explore-playlists.css";
+import "../playlists/explore-playlists/Explore-playlists.css";
 import { UserContext } from "../../../contexts/UserContext";
 import { useContext } from "react";
 
@@ -128,32 +128,34 @@ export default function Profile() {
           >{`${profileUser.username}'s liked songs`}</Link>
         </div>
 
-        {likedSongs.length > 0 ? (
-          likedSongs.map((song, index) => {
-            return (
-              <SongItem
-                key={song._id}
-                song={song}
-                songs={likedSongs}
-                index={index}
-                user={user}
-                handleOpenModal={handleOpenModal}
-              />
-            );
-          })
-        ) : (
-          <p>There are currently no songs to display</p>
+        
+          {likedSongs.length > 0 ? (
+            likedSongs.map((song, index) => {
+              return (
+                <SongItem
+                  key={song._id}
+                  song={song}
+                  songs={likedSongs}
+                  index={index}
+                  user={user}
+                  handleOpenModal={handleOpenModal}
+                />
+              );
+            })
+          ) : (
+            <p>There are currently no songs to display</p>
+          )}
+        </div>
+        {selectedSong && (
+          <AddToPlaylistModal
+            show={modalShow}
+            onHide={() => setModalShow(false)}
+            song={selectedSong}
+            playlists={createdPlaylists}
+            onAdd={addSongToPlaylist}
+          />
         )}
       </div>
-      {selectedSong && (
-        <AddToPlaylistModal
-          show={modalShow}
-          onHide={() => setModalShow(false)}
-          song={selectedSong}
-          playlists={createdPlaylists}
-          onAdd={addSongToPlaylist}
-        />
-      )}
-    </div>
+   
   );
 }

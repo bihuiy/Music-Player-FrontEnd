@@ -1,7 +1,6 @@
 .profile-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   max-width: 1000px;
   margin: 0 auto;
@@ -15,10 +14,17 @@
 
 .section {
   margin-bottom: 40px;
+  width: 100%;
+}
+.subsection {
+  margin-top: 20px;
+  margin-bottom: 40px;
+  width: 100%;
 }
 
 .section-title {
   display: flex;
+  justify-content: flex-start;
   font-size: 1.3rem;
   margin-bottom: 10px;
   color: #333;

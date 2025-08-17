@@ -34,7 +34,7 @@ export default function LikedSongs() {
         setLikedSongs(data.likedSongs);
       } catch (error) {
         console.log(error);
-        
+
         setError(error);
       } finally {
         setIsLoading(false);
@@ -51,7 +51,7 @@ export default function LikedSongs() {
         setPlaylists(data.createdPlaylists);
       } catch (error) {
         console.log(error);
-        
+
         setError(error);
       }
     };
@@ -71,10 +71,15 @@ export default function LikedSongs() {
   return (
     <div className="profile-container">
       <div className="profile-header">
+        <img
+          src={profileUser.profileImage}
+          alt={`${profileUser.username}'s avatar`}
+          className="profile-avatar"
+        />
         <h1>{profileUser.username}'s liked songs</h1>
         <hr />
       </div>
-      <div>
+      <div className="subsection">
         {likedSongs.length > 0 ? (
           likedSongs.map((likedSong, index) => {
             return (
