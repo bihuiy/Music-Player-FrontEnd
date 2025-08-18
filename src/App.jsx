@@ -8,7 +8,7 @@ import SignUpPage from "./components/views/User/SignUp/SignUp.jsx";
 import SignInPage from "./components/views/User/SignIn/SignIn.jsx";
 import CreatePlaylist from "./components/views/Playlists/CreatePlaylist/CreatePlaylist.jsx";
 import ExplorePlaylists from "./components/views/Playlists/ExplorePlaylists/ExplorePlaylists.jsx";
-import Profile from "./components/views/Profiles/UserProfile.jsx";
+import Profile from "./components/views/Profiles/Profile.jsx";
 import LikedSongs from "./components/views/Profiles/LikedSongs.jsx";
 import CreatedPlaylists from "./components/views/Profiles/CreatedPlaylists.jsx";
 import BookmarkedPlaylists from "./components/views/Profiles/BookmarkedPlaylists.jsx";
