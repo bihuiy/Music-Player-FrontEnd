@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
 import { useNavigate } from "react-router";
 import { removeToken } from "../../utils/auth";
+import { GiMusicSpell } from "react-icons/gi";
 
 const Navbar = () => {
   const { user, setUser } = useContext(UserContext);
@@ -18,7 +19,10 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="HomeLink">
-        <Link to="/">Home</Link>
+        <Link to="/">
+          Amplify
+          <GiMusicSpell />
+        </Link>
       </div>
       <div className="links">
         <Link to="/playlists">Explore Playlists</Link>
