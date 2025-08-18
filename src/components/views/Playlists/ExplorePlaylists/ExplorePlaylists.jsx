@@ -1,9 +1,9 @@
 import { playlistIndex } from "../../../../services/playlists";
-import "./Explore-playlists.css";
+import "./ExplorePlaylists.css";
 import { useEffect, useState } from "react";
 import ErrorPage from "../../ErrorPage/ErrorPage";
 import LoadingPage from "../../LoadingPage/LoadingPage";
-import PlaylistTile from "../../../Playlist-tile/Playlist-tile";
+import PlaylistTile from "../../../PlaylistTile/PlaylistTile";
 
 // * Services / utils
 import { searchPlaylists } from "../../../../utils/playlistSearch";

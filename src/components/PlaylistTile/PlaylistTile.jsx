@@ -1,4 +1,4 @@
-import "./Playlist-tile.css";
+import "./PlaylistTile.css";
 import { Link } from "react-router";
 import BookmarkButton from "../BookmarkButton/BookmarkButton";
 import { UserContext } from "../../contexts/UserContext";

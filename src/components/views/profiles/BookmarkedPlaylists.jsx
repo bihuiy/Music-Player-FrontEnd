@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import "./Profile.css";
-import "../playlists/explore-playlists/Explore-playlists.css";
-import PlaylistTile from "../../Playlist-tile/Playlist-tile";
+import "../playlists/explorePlaylists/ExplorePlaylists.css";
+import PlaylistTile from "../../PlaylistTile/PlaylistTile";
 
 // * Services
 import { bookmarkedPlaylistsShow } from "../../../services/profiles";

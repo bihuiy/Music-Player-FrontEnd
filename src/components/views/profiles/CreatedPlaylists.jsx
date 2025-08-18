@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { createdPlaylistsShow } from "../../../services/profiles";
 import "./Profile.css";
-import PlaylistTile from "../../Playlist-tile/Playlist-tile";
+import PlaylistTile from "../../PlaylistTile/PlaylistTile";
 
 // Page components
 import ErrorPage from "../ErrorPage/ErrorPage";

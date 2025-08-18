@@ -4,7 +4,7 @@ import { FcLike, FcLikePlaceholder } from "react-icons/fc";
 import { useNavigate } from "react-router";
 
 // * Page components
-import ErrorPage from "../Views/ErrorPage/ErrorPage";
+import ErrorPage from "../views/ErrorPage/ErrorPage";
 
 export default function LikeButton({ song, user }) {
   const [liked, setLiked] = useState(

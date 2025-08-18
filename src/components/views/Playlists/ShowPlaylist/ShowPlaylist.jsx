@@ -1,4 +1,4 @@
-import "./Show-playlist.css";
+import "./ShowPlaylist.css";
 import { useEffect, useState, useContext } from "react";
 import { Link, useParams, useNavigate } from "react-router";
 import { deletePlaylist, getPlaylist } from "../../../../services/playlists";

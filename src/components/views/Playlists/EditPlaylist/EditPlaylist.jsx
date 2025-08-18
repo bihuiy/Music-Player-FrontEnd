@@ -1,11 +1,11 @@
-import "./Edit-playlist.css";
+import "./EditPlaylist.css";
 import { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router";
 import { getPlaylist } from "../../../../services/playlists";
 import ErrorPage from "../../ErrorPage/ErrorPage";
 import LoadingPage from "../../LoadingPage/LoadingPage"
 import { UserContext } from "../../../../contexts/UserContext";
-import EditPlaylistForm from "../../../Edit-playlist-form/Edit-playlist-form";
+import EditPlaylistForm from "../../../EditPlaylistForm/EditPlaylistForm";
 
 const editPlaylist = () => {
   const { playlistId } = useParams();

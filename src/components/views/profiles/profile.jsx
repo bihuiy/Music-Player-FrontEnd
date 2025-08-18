@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { profileShow } from "../../../services/profiles";
 import "./Profile.css";
-import "../playlists/explore-playlists/Explore-playlists.css";
+import "../Playlists/ExplorePlaylists/ExplorePlaylists.css";
 import { UserContext } from "../../../contexts/UserContext";
 import { useContext } from "react";
 
@@ -13,7 +13,7 @@ import SongItem from "../Songs/SongItem";
 import AddToPlaylistModal from "../Songs/AddToPlaylistModal";
 import { addSongToPlaylist } from "../../../services/songs";
 import { createdPlaylistsShow } from "../../../services/profiles";
-import PlaylistTile from "../../Playlist-tile/Playlist-tile";
+import PlaylistTile from "../../PlaylistTile/PlaylistTile";
 
 export default function Profile() {
   const { userId } = useParams();

@@ -1,4 +1,4 @@
-import './Sign-up-form.css'
+import './SignUpForm.css'
 import '../../styles/forms.css'
 import { useState, useContext } from 'react'
 import { signUp } from '../../services/users'

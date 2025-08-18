@@ -1,4 +1,4 @@
-import './Create-playlist.css'
+import './CreatePlaylist.css'
 import '../../../../styles/forms.css'
 import { useState } from 'react'
 import { useNavigate } from 'react-router'

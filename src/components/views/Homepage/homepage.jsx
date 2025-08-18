@@ -2,9 +2,9 @@ import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router";
 import { UserContext } from "../../../contexts/UserContext";
 import "./Homepage.css";
-import "../Playlists/Explore-playlists/Explore-playlists.css";
+import "../Playlists/ExplorePlaylists/ExplorePlaylists.css";
 import { homePage } from "../../../services/homepage";
-import PlaylistTile from "../../Playlist-tile/Playlist-tile";
+import PlaylistTile from "../../PlaylistTile/PlaylistTile";
 import { GiMusicSpell } from "react-icons/gi";
 
 // Page components
