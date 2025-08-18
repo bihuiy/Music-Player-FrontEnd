@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import "./Profile.css";
-import "../playlists/explorePlaylists/ExplorePlaylists.css";
+import "../Playlists/ExplorePlaylists/ExplorePlaylists.css";
 import PlaylistTile from "../../PlaylistTile/PlaylistTile";
 
 // * Services
