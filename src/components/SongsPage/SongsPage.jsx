@@ -2,17 +2,14 @@ import { useEffect, useState, useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
 import "./SongsPage.css";
 
-import { useNavigate } from "react-router";
-
 // * Page components
 import ErrorPage from "../ErrorPage/ErrorPage";
 import LoadingPage from "../LoadingPage/LoadingPage";
 import SongItem from "../SongItem/SongItem";
-import AddToPlaylistModal from "../AddToPlaylistModal/AddToPlaylistModal";
+import AddToPlaylistWrapper from "../AddToPlaylistWrapper/AddToPlaylistWrapper";
 
 // * Services / utils
-import { getAllSongs, addSongToPlaylist } from "../../services/songs";
-import { createdPlaylistsShow } from "../../services/profiles";
+import { getAllSongs } from "../../services/songs";
 import { searchSongs } from "../../utils/songSearch";
 
 export default function Songs() {
@@ -20,13 +17,11 @@ export default function Songs() {
 
   // State
   const [songs, setSongs] = useState([]);
-  const [playlists, setPlaylists] = useState([]);
-  const [modalShow, setModalShow] = useState(false);
-  const [selectedSong, setSelectedSong] = useState(null);
   const [query, setQuery] = useState("");
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
+
+  const { handleOpenModal, modalComponent } = AddToPlaylistWrapper();
 
   // Fetch all songs
   useEffect(() => {
@@ -46,27 +41,6 @@ export default function Songs() {
   }, []);
 
   const filteredSongs = searchSongs(songs, query);
-
-  // Fetch current login user's playlists
-  useEffect(() => {
-    if (!user?._id) return;
-    const getCreatedPlaylistsData = async () => {
-      try {
-        const { data } = await createdPlaylistsShow(user._id);
-        setPlaylists(data.createdPlaylists);
-      } catch (error) {
-        setError(error);
-      }
-    };
-    getCreatedPlaylistsData();
-  }, []);
-
-  // Open modal and set the song to add
-  function handleOpenModal(song) {
-    if (!user?._id) return navigate("/user/sign-up");
-    setSelectedSong(song);
-    setModalShow(true);
-  }
 
   if (error) return <ErrorPage error={error} />;
   if (isLoading) return <LoadingPage />;
@@ -101,15 +75,7 @@ export default function Songs() {
         )}
       </div>
 
-      {selectedSong && (
-        <AddToPlaylistModal
-          show={modalShow}
-          onHide={() => setModalShow(false)}
-          song={selectedSong}
-          playlists={playlists}
-          onAdd={addSongToPlaylist}
-        />
-      )}
+      {modalComponent}
     </>
   );
 }

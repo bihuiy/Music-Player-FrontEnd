@@ -8,25 +8,23 @@ import { UserContext } from "../../contexts/UserContext";
 import LoadingPage from "../LoadingPage/LoadingPage";
 import ErrorPage from "../ErrorPage/ErrorPage";
 import SongItem from "../SongItem/SongItem";
-import AddToPlaylistModal from "../AddToPlaylistModal/AddToPlaylistModal";
 import { CiCirclePlus } from "react-icons/ci";
 import { MdDeleteOutline } from "react-icons/md";
 import BookmarkButton from "../BookmarkButton/BookmarkButton";
+import AddToPlaylistWrapper from "../AddToPlaylistWrapper/AddToPlaylistWrapper";
 
 // * Services / utils
-import { addSongToPlaylist } from "../../services/songs";
 import { removeSongFromPlaylist } from "../../services/playlists";
-import { createdPlaylistsShow } from "../../services/profiles";
 
 const ShowPlaylist = () => {
   const { playlistId } = useParams();
   // * State
   const [playlist, setPlaylist] = useState(null);
-  const [playlists, setPlaylists] = useState([]);
-  const [modalShow, setModalShow] = useState(false);
-  const [selectedSong, setSelectedSong] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  const { handleOpenModal, modalComponent } = AddToPlaylistWrapper();
+
   // * Context
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
@@ -45,30 +43,6 @@ const ShowPlaylist = () => {
     };
     getPlaylistData();
   }, [playlistId]);
-
-  // Fetch current login user's playlists
-  useEffect(() => {
-    if (!user?._id) {
-      setPlaylists([]);
-      return;
-    }
-    const getCreatedPlaylistsData = async () => {
-      try {
-        const { data } = await createdPlaylistsShow(user._id);
-        setPlaylists(data.createdPlaylists);
-      } catch (error) {
-        setError(error);
-      }
-    };
-    getCreatedPlaylistsData();
-  }, []);
-
-  // Open modal and set the song to add
-  function handleOpenModal(song) {
-    if (!user?._id) return navigate("/user/sign-up");
-    setSelectedSong(song);
-    setModalShow(true);
-  }
 
   const handleDelete = async () => {
     try {
@@ -170,15 +144,7 @@ const ShowPlaylist = () => {
             )}
           </div>
         )}
-        {selectedSong && (
-          <AddToPlaylistModal
-            show={modalShow}
-            onHide={() => setModalShow(false)}
-            song={selectedSong}
-            playlists={playlists}
-            onAdd={addSongToPlaylist}
-          />
-        )}
+        {modalComponent}
       </div>
     </main>
   );

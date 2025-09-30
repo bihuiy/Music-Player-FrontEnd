@@ -1,16 +1,14 @@
 import { useEffect, useState, useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
 import { likedSongsShow } from "../../services/profiles";
-import "../ProfilePage/ProfilePage.css"
+import "../ProfilePage/ProfilePage.css";
 
 // Page components
 import ErrorPage from "../ErrorPage/ErrorPage";
 import { useParams } from "react-router";
 import LoadingPage from "../LoadingPage/LoadingPage";
 import SongItem from "../SongItem/SongItem";
-import AddToPlaylistModal from "../AddToPlaylistModal/AddToPlaylistModal";
-import { addSongToPlaylist } from "../../services/songs";
-import { createdPlaylistsShow } from "../../services/profiles";
+import AddToPlaylistWrapper from "../AddToPlaylistWrapper/AddToPlaylistWrapper";
 
 export default function LikedSongs() {
   const { userId } = useParams();
@@ -19,11 +17,10 @@ export default function LikedSongs() {
   // * State
   const [profileUser, setProfileUser] = useState(null);
   const [likedSongs, setLikedSongs] = useState([]);
-  const [modalShow, setModalShow] = useState(false);
-  const [selectedSong, setSelectedSong] = useState(null);
-  const [playlists, setPlaylists] = useState([]);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  const { handleOpenModal, modalComponent } = AddToPlaylistWrapper();
 
   useEffect(() => {
     const getLikedSongsData = async () => {
@@ -42,27 +39,6 @@ export default function LikedSongs() {
     };
     getLikedSongsData();
   }, [userId]);
-
-  // Fetch current login user's playlists
-  useEffect(() => {
-    const getCreatedPlaylistsData = async () => {
-      try {
-        const { data } = await createdPlaylistsShow(user._id);
-        setPlaylists(data.createdPlaylists);
-      } catch (error) {
-        console.log(error);
-
-        setError(error);
-      }
-    };
-    getCreatedPlaylistsData();
-  }, []);
-
-  // Open modal and set the song to add
-  function handleOpenModal(song) {
-    setSelectedSong(song);
-    setModalShow(true);
-  }
 
   if (error) return <ErrorPage error={error} />;
   if (isLoading) return <LoadingPage />;
@@ -96,15 +72,7 @@ export default function LikedSongs() {
         ) : (
           <p>There are currently no songs to display</p>
         )}
-        {selectedSong && (
-          <AddToPlaylistModal
-            show={modalShow}
-            onHide={() => setModalShow(false)}
-            song={selectedSong}
-            playlists={playlists}
-            onAdd={addSongToPlaylist}
-          />
-        )}
+        {modalComponent}
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { profileShow } from "../../services/profiles";
-import "./ProfilePage.css"
+import "./ProfilePage.css";
 import "../ExplorePlaylistsPage/ExplorePlaylistsPage.css";
 import { UserContext } from "../../contexts/UserContext";
 import { useContext } from "react";
@@ -10,10 +10,8 @@ import ErrorPage from "../ErrorPage/ErrorPage";
 import { Link, useParams } from "react-router";
 import LoadingPage from "../LoadingPage/LoadingPage";
 import SongItem from "../SongItem/SongItem";
-import AddToPlaylistModal from "../AddToPlaylistModal/AddToPlaylistModal";
-import { addSongToPlaylist } from "../../services/songs";
-import { createdPlaylistsShow } from "../../services/profiles";
 import PlaylistTile from "../PlaylistTile/PlaylistTile";
+import AddToPlaylistWrapper from "../AddToPlaylistWrapper/AddToPlaylistWrapper";
 
 export default function Profile() {
   const { userId } = useParams();
@@ -23,10 +21,10 @@ export default function Profile() {
   const [createdPlaylists, setCreatedPlaylists] = useState([]);
   const [bookmarkedPlaylists, setBookmarkedPlaylists] = useState([]);
   const [likedSongs, setLikedSongs] = useState([]);
-  const [modalShow, setModalShow] = useState(false);
-  const [selectedSong, setSelectedSong] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  const { handleOpenModal, modalComponent } = AddToPlaylistWrapper();
 
   useEffect(() => {
     const getProfileData = async () => {
@@ -45,25 +43,6 @@ export default function Profile() {
     };
     getProfileData();
   }, [userId]);
-
-  // Fetch current login user's playlists
-  useEffect(() => {
-    const getCreatedPlaylistsData = async () => {
-      try {
-        const { data } = await createdPlaylistsShow(user._id);
-        setCreatedPlaylists(data.createdPlaylists);
-      } catch (error) {
-        setError(error);
-      }
-    };
-    getCreatedPlaylistsData();
-  }, [user]);
-
-  // Open modal and set the song to add
-  function handleOpenModal(song) {
-    setSelectedSong(song);
-    setModalShow(true);
-  }
 
   if (error) return <ErrorPage error={error} />;
   if (isLoading) return <LoadingPage />;
@@ -145,15 +124,7 @@ export default function Profile() {
           <p>There are currently no songs to display</p>
         )}
       </div>
-      {selectedSong && (
-        <AddToPlaylistModal
-          show={modalShow}
-          onHide={() => setModalShow(false)}
-          song={selectedSong}
-          playlists={createdPlaylists}
-          onAdd={addSongToPlaylist}
-        />
-      )}
+      {modalComponent}
     </div>
   );
 }
