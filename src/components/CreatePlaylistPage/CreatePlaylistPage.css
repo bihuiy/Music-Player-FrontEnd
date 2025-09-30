@@ -1,0 +1,7 @@
+button.createPlaylist {
+    background-color: green;
+}
+
+button.createPlaylist:active {
+    background-color: rgb(0, 76, 0);
+}

@@ -1,40 +1,29 @@
+import "./CreatePlaylistPage.css";
 import "../../styles/forms.css";
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router";
-import { editPlaylist, getPlaylist } from "../../services/playlists";
+import { useState } from "react";
+import { useNavigate } from "react-router";
+import { createPlaylist } from "../../services/playlists";
+// * Component
 import ImageUploadField from "../ImageUploadField/ImageUploadField";
 
-const EditPlaylistForm = ({ playlist }) => {
+const CreatePlaylist = () => {
+  // * State
   const [formData, setFormData] = useState({
     title: "",
+    coverArt: "",
   });
   const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
   const navigate = useNavigate();
   const [isUploading, setIsUploading] = useState(false);
 
-  const [prefillError, setPrefillError] = useState("");
-
-  const { playlistId } = useParams();
-
-  useEffect(() => {
-    const getPlaylistData = async () => {
-      try {
-        const { data } = await getPlaylist(playlistId);
-        setFormData(data);
-      } catch (error) {
-        setPrefillError("Unable to fetch playlist details, try again.");
-      }
-    };
-    getPlaylistData();
-  }, [playlistId]);
-
+  // * Function
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitting(true);
     try {
-      const { data } = await editPlaylist(playlistId, formData);
-      navigate(`/playlists/${data._id}`);
+      const { data } = await createPlaylist(formData);
+      navigate("/playlists");
     } catch (error) {
       console.log(error);
       setErrors(error.response.data);
@@ -60,13 +49,13 @@ const EditPlaylistForm = ({ playlist }) => {
   return (
     <>
       <form className="form" onSubmit={handleSubmit}>
+        <h1>CreatePlaylist</h1>
+
         <ImageUploadField
           image="CoverArt"
           setImage={setcoverArt}
           imageUrl={formData.coverArt}
           setIsUploading={setIsUploading}
-          playlistImage={playlist.coverArt}
-          showPlaceholder={true}
         />
 
         <label htmlFor="title">Playlist Title</label>
@@ -79,7 +68,7 @@ const EditPlaylistForm = ({ playlist }) => {
         />
         {errors.title && <p className="error-message">{errors.title}</p>}
         <button
-          className="saveChanges"
+          className="createPlaylist"
           disabled={isUploading || submitting}
           type="submit"
         >
@@ -90,4 +79,4 @@ const EditPlaylistForm = ({ playlist }) => {
   );
 };
 
-export default EditPlaylistForm;
+export default CreatePlaylist;

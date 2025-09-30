@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import "../Navbar/Navbar.css";
+import "./Navbar.css";
 import { useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
 import { useNavigate } from "react-router";
@@ -17,8 +17,8 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="navbar">
-      <div className="HomeLink">
+    <header>
+      <div className="logo">
         <Link to="/">
           Amplify
           <GiMusicSpell />
@@ -41,12 +41,16 @@ const Navbar = () => {
           </>
         ) : (
           <>
-            <Link to="/user/sign-up">sign-up</Link>
-            <Link to="/user/sign-in">sign-in</Link>
+            <Link to="/user/sign-up" className="nav-btn">
+              Sign up
+            </Link>
+            <Link to="/user/sign-in" className="nav-btn">
+              Sign in
+            </Link>
           </>
         )}
       </div>
-    </nav>
+    </header>
   );
 };
 

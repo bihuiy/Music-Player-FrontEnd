@@ -1,5 +1,4 @@
-
-.coverArtWrapper{
+.coverArtWrapper {
     position:relative;
     width: 100%;
     aspect-ratio: 1 / 1;
@@ -7,7 +6,7 @@
     border-radius: 3cap;
 }
 
-.coverArtWrapper img{
+.coverArtWrapper img {
     inset: 0;
     width: 100%;
     height: 100%;
@@ -33,7 +32,7 @@
     line-height: 1;
 }
 
-.bookmarkIcon:hover{
+.bookmarkIcon:hover {
     filter: brightness(75%);
 }
 

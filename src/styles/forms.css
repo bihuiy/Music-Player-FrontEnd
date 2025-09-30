@@ -1,12 +1,11 @@
-
-form{
+form {
   display: flex;
   flex-direction: column;
   gap: 10px;
   width: 300px;
 }
 
-input{
+input {
   border-radius: 12px;
   height:30px
 }

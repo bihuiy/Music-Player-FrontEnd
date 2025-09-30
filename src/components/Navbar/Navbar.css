@@ -1,4 +1,4 @@
-.navbar{
+header {
     position: fixed;
     top: 0;
     left: 0;
@@ -12,13 +12,60 @@
     z-index: 9;
 }
 
-.navbar a{
+header a {
     color: #129633;
     text-decoration: none;
-    padding-right: 15px;
-    padding-left: 15px;
+    padding: 6px 15px;
+    margin: auto 6px;
 }
-.navbar a:hover{
+header a:hover {
     color: #2eda25;          
 }
 
+.logo {
+  height: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+.nav-btn {
+    border-radius: 50px;
+    background: white;
+    font-weight: 500;
+    transition: all 0.2s ease;
+  }
+  
+.nav-btn:hover {
+    background: #e9ecef;
+}
+
+@media (min-width: 319px) and (max-width: 480px) {
+    body {
+      font-size: 10px;
+    }
+    header a {
+      padding: 4px;
+    }
+    .logo {
+      gap: 0;
+    }
+    .nav-btn {
+      padding: 8px 6px;
+    }
+  }
+
+@media (min-width: 481px) and (max-width: 1200px) {
+    body {
+      font-size: 20px;
+    }
+    header {
+      padding: 0.8rem;
+    }
+    .logo {
+      gap: 0rem;
+    }
+    .nav-btn {
+      padding: 4px 3px;
+      font-size: 14px
+    }
+}
