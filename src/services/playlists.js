@@ -43,7 +43,7 @@ export const unbookmarkPlaylist = (id) => {
 
 export const removeSongFromPlaylist = (id, songId) => {
   return axios.patch(
-    BASE_URL + `/${id}/remove-songId`,
+    BASE_URL + `/${id}/remove-song`,
     { songId },
     {
       headers: { Authorization: `Bearer ${getToken()}` },
