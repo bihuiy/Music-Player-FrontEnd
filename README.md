@@ -200,7 +200,7 @@ Below is an overview of my development timeline mapped to these stages:
 
 ## Build / Code Process
 
-Below is my detailed day-by-day breakdown of the development process, which I originally documented on my Trello board. I contributed mainly to the **Homepage**,**Song** and **Profile** features on the backend.
+Below is my detailed day-by-day breakdown of the development process, which I originally documented on my Trello board. I contributed mainly to the **Homepage**,**Song** and **Profile** features.
 
 ### Backlog (Planning Stage)
 
